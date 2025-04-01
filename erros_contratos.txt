@@ -1,0 +1,465 @@
+2025-04-01 09:54:49,241 - DEBUG - Selenium Manager binary found at: C:\Users\joao_silva\Documents\APP QLD\RPA CONSULTOR\env\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2025-04-01 09:54:49,241 - DEBUG - Executing process: C:\Users\joao_silva\Documents\APP QLD\RPA CONSULTOR\env\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --language-binding python --output json
+2025-04-01 09:54:51,312 - DEBUG - Sending stats to Plausible: Props { browser: "chrome", browser_version: "", os: "windows", arch: "amd64", lang: "python", selenium_version: "4.29" }
+2025-04-01 09:54:51,312 - DEBUG - chromedriver not found in PATH
+2025-04-01 09:54:51,312 - DEBUG - chrome detected at C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-01 09:54:51,312 - DEBUG - Running command: wmic datafile where name='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2025-04-01 09:54:51,312 - DEBUG - Output: "\r\r\n\r\r\nVersion=134.0.6998.178\r\r\n\r\r\n\r\r\n\r"
+2025-04-01 09:54:51,312 - DEBUG - Detected browser: chrome 134.0.6998.178
+2025-04-01 09:54:51,312 - DEBUG - Discovering versions from https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json
+2025-04-01 09:54:51,312 - DEBUG - Required driver: chromedriver 134.0.6998.165
+2025-04-01 09:54:51,312 - DEBUG - chromedriver 134.0.6998.165 already in the cache
+2025-04-01 09:54:51,312 - DEBUG - Driver path: C:\Users\joao_silva\.cache\selenium\chromedriver\win64\134.0.6998.165\chromedriver.exe
+2025-04-01 09:54:51,312 - DEBUG - Browser path: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-01 09:54:51,491 - DEBUG - Started executable: `C:\Users\joao_silva\.cache\selenium\chromedriver\win64\134.0.6998.165\chromedriver.exe` in a child process with pid: 3608 using 0 to output -3
+2025-04-01 09:54:52,045 - DEBUG - POST http://localhost:51718/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'browserVersion': None, 'goog:chromeOptions': {'extensions': [], 'binary': 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', 'args': []}}}}
+2025-04-01 09:54:52,045 - DEBUG - Starting new HTTP connection (1): localhost:51718
+2025-04-01 09:54:53,207 - DEBUG - http://localhost:51718 "POST /session HTTP/1.1" 200 0
+2025-04-01 09:54:53,207 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"134.0.6998.178","chrome":{"chromedriverVersion":"134.0.6998.165 (fd886e2cb29dd984c13deec032832dee68d8abe3-refs/branch-heads/6998@{#2122})","userDataDir":"C:\\Users\\joao_silva\\AppData\\Local\\Temp\\scoped_dir3608_467618326"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:51724"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"261c71fc544a9d41a59b4aa537cc600d"}} | headers=HTTPHeaderDict({'Content-Length': '887', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:53,207 - DEBUG - Finished Request
+2025-04-01 09:54:53,207 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/window/maximize {}
+2025-04-01 09:54:53,247 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/window/maximize HTTP/1.1" 200 0
+2025-04-01 09:54:53,247 - DEBUG - Remote response: status=200 | data={"value":{"height":744,"width":1382,"x":-8,"y":-8}} | headers=HTTPHeaderDict({'Content-Length': '51', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:53,247 - DEBUG - Finished Request
+2025-04-01 09:54:53,247 - INFO - Navegador Chrome iniciado com sucesso
+2025-04-01 09:54:53,247 - INFO - Realizando login no Contraktor...
+2025-04-01 09:54:53,248 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/url {'url': 'https://app.contraktor.com.br/contratos'}
+2025-04-01 09:54:58,362 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/url HTTP/1.1" 200 0
+2025-04-01 09:54:58,362 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,362 - DEBUG - Finished Request
+2025-04-01 09:54:58,363 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'css selector', 'value': '[id="email"]'}
+2025-04-01 09:54:58,378 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:54:58,378 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.28"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,378 - DEBUG - Finished Request
+2025-04-01 09:54:58,378 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'css selector', 'value': '[id="password"]'}
+2025-04-01 09:54:58,395 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:54:58,395 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.29"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,395 - DEBUG - Finished Request
+2025-04-01 09:54:58,395 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.28/value {'text': 'cadastro@afinz.com.br', 'value': ['c', 'a', 'd', 'a', 's', 't', 'r', 'o', '@', 'a', 'f', 'i', 'n', 'z', '.', 'c', 'o', 'm', '.', 'b', 'r']}
+2025-04-01 09:54:58,537 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.28/value HTTP/1.1" 200 0
+2025-04-01 09:54:58,543 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,543 - DEBUG - Finished Request
+2025-04-01 09:54:58,544 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.29/value {'text': 'Cadastro@2024', 'value': ['C', 'a', 'd', 'a', 's', 't', 'r', 'o', '@', '2', '0', '2', '4']}
+2025-04-01 09:54:58,631 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.29/value HTTP/1.1" 200 0
+2025-04-01 09:54:58,631 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,631 - DEBUG - Finished Request
+2025-04-01 09:54:58,631 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': "//button[contains(@type, 'submit')]"}
+2025-04-01 09:54:58,643 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:54:58,643 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.22"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,643 - DEBUG - Finished Request
+2025-04-01 09:54:58,643 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.22'}]}
+2025-04-01 09:54:58,643 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:54:58,643 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,643 - DEBUG - Finished Request
+2025-04-01 09:54:58,643 - DEBUG - GET http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.22/enabled {}
+2025-04-01 09:54:58,662 - DEBUG - http://localhost:51718 "GET /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.22/enabled HTTP/1.1" 200 0
+2025-04-01 09:54:58,662 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,662 - DEBUG - Finished Request
+2025-04-01 09:54:58,662 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.22/click {}
+2025-04-01 09:54:58,737 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.22/click HTTP/1.1" 200 0
+2025-04-01 09:54:58,737 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,737 - DEBUG - Finished Request
+2025-04-01 09:54:58,737 - DEBUG - GET http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/url {}
+2025-04-01 09:54:58,784 - DEBUG - http://localhost:51718 "GET /session/261c71fc544a9d41a59b4aa537cc600d/url HTTP/1.1" 200 0
+2025-04-01 09:54:58,784 - DEBUG - Remote response: status=200 | data={"value":"https://app.contraktor.com.br/auth/login"} | headers=HTTPHeaderDict({'Content-Length': '52', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:54:58,784 - DEBUG - Finished Request
+2025-04-01 09:54:58,784 - INFO - Login realizado com sucesso!
+2025-04-01 09:54:58,784 - INFO - Lendo planilha de contratos: C:\Users\joao_silva\Downloads\ESTEIRA.xlsx
+2025-04-01 09:55:00,634 - INFO - Total de 58 contratos pendentes encontrados
+2025-04-01 09:55:00,634 - INFO - Modo de teste ativado - processando apenas 1 contrato
+2025-04-01 09:55:00,635 - INFO - Processando contrato 1/1: 2025/1545
+2025-04-01 09:55:00,635 - INFO - 
+=== Processando contrato: 2025/1545 ===
+2025-04-01 09:55:00,636 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': '//div[contains(@class, "ui active transition visible inverted dimmer")]'}
+2025-04-01 09:55:00,774 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:00,774 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.57"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:00,774 - DEBUG - Finished Request
+2025-04-01 09:55:00,774 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.57'}]}
+2025-04-01 09:55:00,782 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:00,782 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:00,782 - DEBUG - Finished Request
+2025-04-01 09:55:01,283 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': '//div[contains(@class, "ui active transition visible inverted dimmer")]'}
+2025-04-01 09:55:01,283 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:01,283 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.57"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:01,283 - DEBUG - Finished Request
+2025-04-01 09:55:01,283 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.57'}]}
+2025-04-01 09:55:01,294 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:01,294 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:01,294 - DEBUG - Finished Request
+2025-04-01 09:55:01,798 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': '//div[contains(@class, "ui active transition visible inverted dimmer")]'}
+2025-04-01 09:55:01,798 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:01,798 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.57"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:01,798 - DEBUG - Finished Request
+2025-04-01 09:55:01,798 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.57'}]}
+2025-04-01 09:55:02,274 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:02,274 - DEBUG - Remote response: status=200 | data={"value":false} | headers=HTTPHeaderDict({'Content-Length': '15', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,274 - DEBUG - Finished Request
+2025-04-01 09:55:02,274 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:55:02,283 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:02,283 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.117"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,283 - DEBUG - Finished Request
+2025-04-01 09:55:02,284 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.117'}]}
+2025-04-01 09:55:02,288 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:02,288 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,288 - DEBUG - Finished Request
+2025-04-01 09:55:02,288 - DEBUG - GET http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.117/enabled {}
+2025-04-01 09:55:02,292 - DEBUG - http://localhost:51718 "GET /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.117/enabled HTTP/1.1" 200 0
+2025-04-01 09:55:02,293 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,293 - DEBUG - Finished Request
+2025-04-01 09:55:02,293 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.117/click {}
+2025-04-01 09:55:02,384 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.117/click HTTP/1.1" 200 0
+2025-04-01 09:55:02,384 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,384 - DEBUG - Finished Request
+2025-04-01 09:55:02,384 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': "//div[@role='option']//span[contains(@class, 'text') and text()='Número']"}
+2025-04-01 09:55:02,400 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:02,400 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.118"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,400 - DEBUG - Finished Request
+2025-04-01 09:55:02,400 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.118'}]}
+2025-04-01 09:55:02,406 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:02,406 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,406 - DEBUG - Finished Request
+2025-04-01 09:55:02,406 - DEBUG - GET http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.118/enabled {}
+2025-04-01 09:55:02,410 - DEBUG - http://localhost:51718 "GET /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.118/enabled HTTP/1.1" 200 0
+2025-04-01 09:55:02,410 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,410 - DEBUG - Finished Request
+2025-04-01 09:55:02,410 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.118/click {}
+2025-04-01 09:55:02,475 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.118/click HTTP/1.1" 200 0
+2025-04-01 09:55:02,475 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,475 - DEBUG - Finished Request
+2025-04-01 09:55:02,475 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': "//input[contains(@type, 'search')]"}
+2025-04-01 09:55:02,477 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:02,477 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.59"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,477 - DEBUG - Finished Request
+2025-04-01 09:55:02,477 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.59/clear {}
+2025-04-01 09:55:02,510 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.59/clear HTTP/1.1" 200 0
+2025-04-01 09:55:02,510 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,510 - DEBUG - Finished Request
+2025-04-01 09:55:02,510 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.59/value {'text': '2025/1545', 'value': ['2', '0', '2', '5', '/', '1', '5', '4', '5']}
+2025-04-01 09:55:02,681 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.59/value HTTP/1.1" 200 0
+2025-04-01 09:55:02,681 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,681 - DEBUG - Finished Request
+2025-04-01 09:55:02,681 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/button'}
+2025-04-01 09:55:02,693 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:02,693 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.122"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,693 - DEBUG - Finished Request
+2025-04-01 09:55:02,693 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.122'}]}
+2025-04-01 09:55:02,693 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:02,693 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,693 - DEBUG - Finished Request
+2025-04-01 09:55:02,693 - DEBUG - GET http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.122/enabled {}
+2025-04-01 09:55:02,710 - DEBUG - http://localhost:51718 "GET /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.122/enabled HTTP/1.1" 200 0
+2025-04-01 09:55:02,710 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:02,710 - DEBUG - Finished Request
+2025-04-01 09:55:02,710 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.122/click {}
+2025-04-01 09:55:03,103 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.122/click HTTP/1.1" 200 0
+2025-04-01 09:55:03,103 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:03,103 - DEBUG - Finished Request
+2025-04-01 09:55:03,103 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element {'using': 'xpath', 'value': '//*[@id="number"]/a'}
+2025-04-01 09:55:03,110 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element HTTP/1.1" 200 0
+2025-04-01 09:55:03,110 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.158"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:03,110 - DEBUG - Finished Request
+2025-04-01 09:55:03,125 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.158'}]}
+2025-04-01 09:55:03,125 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:55:03,125 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:03,125 - DEBUG - Finished Request
+2025-04-01 09:55:03,125 - DEBUG - GET http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.158/enabled {}
+2025-04-01 09:55:03,125 - DEBUG - http://localhost:51718 "GET /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.158/enabled HTTP/1.1" 200 0
+2025-04-01 09:55:03,125 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:03,125 - DEBUG - Finished Request
+2025-04-01 09:55:03,125 - DEBUG - POST http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.158/click {}
+2025-04-01 09:55:04,194 - DEBUG - http://localhost:51718 "POST /session/261c71fc544a9d41a59b4aa537cc600d/element/f.EDFF4F8759986DDFC1429C6221E3910F.d.319A05D67518CD7DCBB2255E6C981CCE.e.158/click HTTP/1.1" 400 0
+2025-04-01 09:55:04,194 - DEBUG - Remote response: status=400 | data={"value":{"error":"element click intercepted","message":"element click intercepted: Element \u003Ca class=\"sc-flvzOl jRriGr\" href=\"/contratos/3537512\">...\u003C/a> is not clickable at point (132, 314). Other element would receive the click: \u003Cdiv class=\"ui active transition visible inverted dimmer\" style=\"display: flex !important;\">...\u003C/div>\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C27929]\n\t(No symbol) [0x00007FF7A6C252E2]\n\t(No symbol) [0x00007FF7A6C22381]\n\t(No symbol) [0x00007FF7A6C21281]\n\t(No symbol) [0x00007FF7A6C12A24]\n\t(No symbol) [0x00007FF7A6C47C2A]\n\t(No symbol) [0x00007FF7A6C122D6]\n\t(No symbol) [0x00007FF7A6C47E40]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1410', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:04,194 - DEBUG - Finished Request
+2025-04-01 09:55:04,194 - ERROR - Erro ao processar contrato 2025/1545: Message: element click intercepted: Element <a class="sc-flvzOl jRriGr" href="/contratos/3537512">...</a> is not clickable at point (132, 314). Other element would receive the click: <div class="ui active transition visible inverted dimmer" style="display: flex !important;">...</div>
+  (Session info: chrome=134.0.6998.178)
+Stacktrace:
+	GetHandleVerifier [0x00007FF7A70D4C25+3179557]
+	(No symbol) [0x00007FF7A6D388A0]
+	(No symbol) [0x00007FF7A6BC91CA]
+	(No symbol) [0x00007FF7A6C27929]
+	(No symbol) [0x00007FF7A6C252E2]
+	(No symbol) [0x00007FF7A6C22381]
+	(No symbol) [0x00007FF7A6C21281]
+	(No symbol) [0x00007FF7A6C12A24]
+	(No symbol) [0x00007FF7A6C47C2A]
+	(No symbol) [0x00007FF7A6C122D6]
+	(No symbol) [0x00007FF7A6C47E40]
+	(No symbol) [0x00007FF7A6C702F3]
+	(No symbol) [0x00007FF7A6C47A03]
+	(No symbol) [0x00007FF7A6C106D0]
+	(No symbol) [0x00007FF7A6C11983]
+	GetHandleVerifier [0x00007FF7A71367CD+3579853]
+	GetHandleVerifier [0x00007FF7A714D1D2+3672530]
+	GetHandleVerifier [0x00007FF7A7142153+3627347]
+	GetHandleVerifier [0x00007FF7A6EA092A+868650]
+	(No symbol) [0x00007FF7A6D42FFF]
+	(No symbol) [0x00007FF7A6D3F4A4]
+	(No symbol) [0x00007FF7A6D3F646]
+	(No symbol) [0x00007FF7A6D2EAA9]
+	BaseThreadInitThunk [0x00007FFCCB8F7614+20]
+	RtlUserThreadStart [0x00007FFCCD6E26F1+33]
+
+2025-04-01 09:55:07,198 - INFO - 
+=== Resumo do processamento ===
+2025-04-01 09:55:07,198 - INFO - Total de contratos processados: 1
+2025-04-01 09:55:07,198 - INFO - Sucessos: 0
+2025-04-01 09:55:07,198 - INFO - Falhas: 1
+2025-04-01 09:55:07,198 - DEBUG - DELETE http://localhost:51718/session/261c71fc544a9d41a59b4aa537cc600d {}
+2025-04-01 09:55:07,369 - DEBUG - http://localhost:51718 "DELETE /session/261c71fc544a9d41a59b4aa537cc600d HTTP/1.1" 200 0
+2025-04-01 09:55:07,369 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:55:07,369 - DEBUG - Finished Request
+2025-04-01 09:55:09,505 - INFO - Navegador fechado
+2025-04-01 09:56:46,177 - DEBUG - Selenium Manager binary found at: C:\Users\joao_silva\Documents\APP QLD\RPA CONSULTOR\env\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe
+2025-04-01 09:56:46,177 - DEBUG - Executing process: C:\Users\joao_silva\Documents\APP QLD\RPA CONSULTOR\env\Lib\site-packages\selenium\webdriver\common\windows\selenium-manager.exe --browser chrome --debug --language-binding python --output json
+2025-04-01 09:56:46,578 - DEBUG - chromedriver not found in PATH
+2025-04-01 09:56:46,578 - DEBUG - chrome detected at C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-01 09:56:46,578 - DEBUG - Running command: wmic datafile where name='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' get Version /value
+2025-04-01 09:56:46,578 - DEBUG - Output: "\r\r\n\r\r\nVersion=134.0.6998.178\r\r\n\r\r\n\r\r\n\r"
+2025-04-01 09:56:46,578 - DEBUG - Detected browser: chrome 134.0.6998.178
+2025-04-01 09:56:46,578 - DEBUG - Required driver: chromedriver 134.0.6998.165
+2025-04-01 09:56:46,578 - DEBUG - chromedriver 134.0.6998.165 already in the cache
+2025-04-01 09:56:46,578 - DEBUG - Driver path: C:\Users\joao_silva\.cache\selenium\chromedriver\win64\134.0.6998.165\chromedriver.exe
+2025-04-01 09:56:46,578 - DEBUG - Browser path: C:\Program Files\Google\Chrome\Application\chrome.exe
+2025-04-01 09:56:46,578 - DEBUG - Started executable: `C:\Users\joao_silva\.cache\selenium\chromedriver\win64\134.0.6998.165\chromedriver.exe` in a child process with pid: 3876 using 0 to output -3
+2025-04-01 09:56:47,111 - DEBUG - POST http://localhost:51827/session {'capabilities': {'firstMatch': [{}], 'alwaysMatch': {'browserName': 'chrome', 'pageLoadStrategy': <PageLoadStrategy.normal: 'normal'>, 'browserVersion': None, 'goog:chromeOptions': {'extensions': [], 'binary': 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', 'args': []}}}}
+2025-04-01 09:56:47,111 - DEBUG - Starting new HTTP connection (1): localhost:51827
+2025-04-01 09:56:48,102 - DEBUG - http://localhost:51827 "POST /session HTTP/1.1" 200 0
+2025-04-01 09:56:48,102 - DEBUG - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"134.0.6998.178","chrome":{"chromedriverVersion":"134.0.6998.165 (fd886e2cb29dd984c13deec032832dee68d8abe3-refs/branch-heads/6998@{#2122})","userDataDir":"C:\\Users\\joao_silva\\AppData\\Local\\Temp\\scoped_dir3876_1284706893"},"fedcm:accounts":true,"goog:chromeOptions":{"debuggerAddress":"localhost:51830"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"windows","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:extension:minPinLength":true,"webauthn:extension:prf":true,"webauthn:virtualAuthenticators":true},"sessionId":"a13f932447ffb4f9a0aceb58fdc6e316"}} | headers=HTTPHeaderDict({'Content-Length': '888', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:48,102 - DEBUG - Finished Request
+2025-04-01 09:56:48,102 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/window/maximize {}
+2025-04-01 09:56:48,159 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/window/maximize HTTP/1.1" 200 0
+2025-04-01 09:56:48,160 - DEBUG - Remote response: status=200 | data={"value":{"height":744,"width":1382,"x":-8,"y":-8}} | headers=HTTPHeaderDict({'Content-Length': '51', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:48,160 - DEBUG - Finished Request
+2025-04-01 09:56:48,160 - INFO - Navegador Chrome iniciado com sucesso
+2025-04-01 09:56:48,160 - INFO - Realizando login no Contraktor...
+2025-04-01 09:56:48,160 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/url {'url': 'https://app.contraktor.com.br/contratos'}
+2025-04-01 09:56:52,812 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/url HTTP/1.1" 200 0
+2025-04-01 09:56:52,812 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:52,812 - DEBUG - Finished Request
+2025-04-01 09:56:52,812 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'css selector', 'value': '[id="email"]'}
+2025-04-01 09:56:52,827 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:56:52,827 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.26"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:52,827 - DEBUG - Finished Request
+2025-04-01 09:56:52,827 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'css selector', 'value': '[id="password"]'}
+2025-04-01 09:56:52,841 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:56:52,842 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.27"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:52,842 - DEBUG - Finished Request
+2025-04-01 09:56:52,842 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.26/value {'text': 'cadastro@afinz.com.br', 'value': ['c', 'a', 'd', 'a', 's', 't', 'r', 'o', '@', 'a', 'f', 'i', 'n', 'z', '.', 'c', 'o', 'm', '.', 'b', 'r']}
+2025-04-01 09:56:53,012 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.26/value HTTP/1.1" 200 0
+2025-04-01 09:56:53,012 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,012 - DEBUG - Finished Request
+2025-04-01 09:56:53,012 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.27/value {'text': 'Cadastro@2024', 'value': ['C', 'a', 'd', 'a', 's', 't', 'r', 'o', '@', '2', '0', '2', '4']}
+2025-04-01 09:56:53,116 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.27/value HTTP/1.1" 200 0
+2025-04-01 09:56:53,116 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,116 - DEBUG - Finished Request
+2025-04-01 09:56:53,117 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': "//button[contains(@type, 'submit')]"}
+2025-04-01 09:56:53,121 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:56:53,121 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.21"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,121 - DEBUG - Finished Request
+2025-04-01 09:56:53,121 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.21'}]}
+2025-04-01 09:56:53,137 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:56:53,137 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,137 - DEBUG - Finished Request
+2025-04-01 09:56:53,137 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.21/enabled {}
+2025-04-01 09:56:53,137 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.21/enabled HTTP/1.1" 200 0
+2025-04-01 09:56:53,137 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,137 - DEBUG - Finished Request
+2025-04-01 09:56:53,137 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.21/click {}
+2025-04-01 09:56:53,240 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.21/click HTTP/1.1" 200 0
+2025-04-01 09:56:53,240 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,240 - DEBUG - Finished Request
+2025-04-01 09:56:53,240 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/url {}
+2025-04-01 09:56:53,240 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/url HTTP/1.1" 200 0
+2025-04-01 09:56:53,240 - DEBUG - Remote response: status=200 | data={"value":"https://app.contraktor.com.br/auth/login"} | headers=HTTPHeaderDict({'Content-Length': '52', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:53,240 - DEBUG - Finished Request
+2025-04-01 09:56:53,240 - INFO - Login realizado com sucesso!
+2025-04-01 09:56:53,240 - INFO - Lendo planilha de contratos: C:\Users\joao_silva\Downloads\ESTEIRA.xlsx
+2025-04-01 09:56:55,073 - INFO - Total de 58 contratos pendentes encontrados
+2025-04-01 09:56:55,073 - INFO - Modo de teste ativado - processando apenas 1 contrato
+2025-04-01 09:56:55,073 - INFO - Processando contrato 1/1: 2025/1545
+2025-04-01 09:56:55,073 - INFO - 
+=== Processando contrato: 2025/1545 ===
+2025-04-01 09:56:55,073 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//div[contains(@class, "ui active transition visible inverted dimmer")]'}
+2025-04-01 09:56:55,090 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:55,090 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//div[contains(@class, \"ui active transition visible inverted dimmer\")]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1109', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:55,090 - DEBUG - Finished Request
+2025-04-01 09:56:55,090 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:55,109 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:55,109 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:55,109 - DEBUG - Finished Request
+2025-04-01 09:56:55,611 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:55,623 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:55,623 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:55,624 - DEBUG - Finished Request
+2025-04-01 09:56:56,124 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:56,124 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:56,124 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:56,124 - DEBUG - Finished Request
+2025-04-01 09:56:56,631 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:56,640 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:56,640 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:56,640 - DEBUG - Finished Request
+2025-04-01 09:56:57,144 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:57,144 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:57,144 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:57,144 - DEBUG - Finished Request
+2025-04-01 09:56:57,652 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:57,658 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:57,658 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:57,658 - DEBUG - Finished Request
+2025-04-01 09:56:58,166 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:58,177 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:56:58,177 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/div[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1142', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:58,177 - DEBUG - Finished Request
+2025-04-01 09:56:58,678 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/div/di...'}
+2025-04-01 09:56:58,688 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:56:58,689 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.74"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:58,689 - DEBUG - Finished Request
+2025-04-01 09:56:58,689 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.74'}]}
+2025-04-01 09:56:58,710 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:56:58,710 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:58,710 - DEBUG - Finished Request
+2025-04-01 09:56:58,710 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.74/enabled {}
+2025-04-01 09:56:58,722 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.74/enabled HTTP/1.1" 200 0
+2025-04-01 09:56:58,722 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:56:58,722 - DEBUG - Finished Request
+2025-04-01 09:56:58,722 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.74/click {}
+2025-04-01 09:57:00,199 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.74/click HTTP/1.1" 200 0
+2025-04-01 09:57:00,199 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,199 - DEBUG - Finished Request
+2025-04-01 09:57:00,199 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': "//div[@role='option']//span[contains(@class, 'text') and text()='Número']"}
+2025-04-01 09:57:00,212 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:00,212 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.117"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,213 - DEBUG - Finished Request
+2025-04-01 09:57:00,213 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.117'}]}
+2025-04-01 09:57:00,218 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:57:00,218 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,218 - DEBUG - Finished Request
+2025-04-01 09:57:00,218 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.117/enabled {}
+2025-04-01 09:57:00,222 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.117/enabled HTTP/1.1" 200 0
+2025-04-01 09:57:00,222 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,222 - DEBUG - Finished Request
+2025-04-01 09:57:00,222 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.117/click {}
+2025-04-01 09:57:00,275 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.117/click HTTP/1.1" 200 0
+2025-04-01 09:57:00,275 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,275 - DEBUG - Finished Request
+2025-04-01 09:57:00,275 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': "//input[contains(@type, 'search')]"}
+2025-04-01 09:57:00,292 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:00,292 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.57"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,292 - DEBUG - Finished Request
+2025-04-01 09:57:00,292 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.57/clear {}
+2025-04-01 09:57:00,308 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.57/clear HTTP/1.1" 200 0
+2025-04-01 09:57:00,308 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,308 - DEBUG - Finished Request
+2025-04-01 09:57:00,308 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.57/value {'text': '2025/1545', 'value': ['2', '0', '2', '5', '/', '1', '5', '4', '5']}
+2025-04-01 09:57:00,450 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.57/value HTTP/1.1" 200 0
+2025-04-01 09:57:00,450 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,450 - DEBUG - Finished Request
+2025-04-01 09:57:00,450 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/button'}
+2025-04-01 09:57:00,458 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:00,458 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.121"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,458 - DEBUG - Finished Request
+2025-04-01 09:57:00,458 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.121'}]}
+2025-04-01 09:57:00,458 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:57:00,458 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,458 - DEBUG - Finished Request
+2025-04-01 09:57:00,458 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.121/enabled {}
+2025-04-01 09:57:00,472 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.121/enabled HTTP/1.1" 200 0
+2025-04-01 09:57:00,472 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,472 - DEBUG - Finished Request
+2025-04-01 09:57:00,472 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.121/click {}
+2025-04-01 09:57:00,863 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.121/click HTTP/1.1" 200 0
+2025-04-01 09:57:00,863 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,863 - DEBUG - Finished Request
+2025-04-01 09:57:00,863 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="number"]/a'}
+2025-04-01 09:57:00,873 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:00,873 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.157"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,873 - DEBUG - Finished Request
+2025-04-01 09:57:00,873 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.157'}]}
+2025-04-01 09:57:00,888 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:57:00,889 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,889 - DEBUG - Finished Request
+2025-04-01 09:57:00,889 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.157/enabled {}
+2025-04-01 09:57:00,890 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.157/enabled HTTP/1.1" 200 0
+2025-04-01 09:57:00,890 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:00,890 - DEBUG - Finished Request
+2025-04-01 09:57:00,890 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.157/click {}
+2025-04-01 09:57:01,479 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.157/click HTTP/1.1" 200 0
+2025-04-01 09:57:01,479 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:01,479 - DEBUG - Finished Request
+2025-04-01 09:57:01,479 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[1]/div[2]/div[1]/div[4]/button[1]'}
+2025-04-01 09:57:01,495 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:57:01,495 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[1]/div[2]/div[1]/div[4]/button[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1132', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:01,495 - DEBUG - Finished Request
+2025-04-01 09:57:01,996 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[1]/div[2]/div[1]/div[4]/button[1]'}
+2025-04-01 09:57:01,996 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 404 0
+2025-04-01 09:57:01,996 - DEBUG - Remote response: status=404 | data={"value":{"error":"no such element","message":"no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[@id=\"single-spa-application:@contraktor/legacy\"]/div/div[1]/div[2]/div[1]/div[4]/button[1]\"}\n  (Session info: chrome=134.0.6998.178)","stacktrace":"\tGetHandleVerifier [0x00007FF7A70D4C25+3179557]\n\t(No symbol) [0x00007FF7A6D388A0]\n\t(No symbol) [0x00007FF7A6BC91CA]\n\t(No symbol) [0x00007FF7A6C1FA67]\n\t(No symbol) [0x00007FF7A6C1FC9C]\n\t(No symbol) [0x00007FF7A6C73627]\n\t(No symbol) [0x00007FF7A6C47C6F]\n\t(No symbol) [0x00007FF7A6C702F3]\n\t(No symbol) [0x00007FF7A6C47A03]\n\t(No symbol) [0x00007FF7A6C106D0]\n\t(No symbol) [0x00007FF7A6C11983]\n\tGetHandleVerifier [0x00007FF7A71367CD+3579853]\n\tGetHandleVerifier [0x00007FF7A714D1D2+3672530]\n\tGetHandleVerifier [0x00007FF7A7142153+3627347]\n\tGetHandleVerifier [0x00007FF7A6EA092A+868650]\n\t(No symbol) [0x00007FF7A6D42FFF]\n\t(No symbol) [0x00007FF7A6D3F4A4]\n\t(No symbol) [0x00007FF7A6D3F646]\n\t(No symbol) [0x00007FF7A6D2EAA9]\n\tBaseThreadInitThunk [0x00007FFCCB8F7614+20]\n\tRtlUserThreadStart [0x00007FFCCD6E26F1+33]\n"}} | headers=HTTPHeaderDict({'Content-Length': '1132', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:01,996 - DEBUG - Finished Request
+2025-04-01 09:57:02,505 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[1]/div[2]/div[1]/div[4]/button[1]'}
+2025-04-01 09:57:02,572 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:02,572 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:02,572 - DEBUG - Finished Request
+2025-04-01 09:57:02,572 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179'}]}
+2025-04-01 09:57:02,587 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:57:02,587 - DEBUG - Remote response: status=200 | data={"value":false} | headers=HTTPHeaderDict({'Content-Length': '15', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:02,587 - DEBUG - Finished Request
+2025-04-01 09:57:03,097 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[1]/div[2]/div[1]/div[4]/button[1]'}
+2025-04-01 09:57:03,097 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:03,097 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179"}} | headers=HTTPHeaderDict({'Content-Length': '127', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:03,097 - DEBUG - Finished Request
+2025-04-01 09:57:03,097 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179'}]}
+2025-04-01 09:57:03,097 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:57:03,097 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:03,097 - DEBUG - Finished Request
+2025-04-01 09:57:03,097 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179/enabled {}
+2025-04-01 09:57:03,112 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179/enabled HTTP/1.1" 200 0
+2025-04-01 09:57:03,112 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:03,112 - DEBUG - Finished Request
+2025-04-01 09:57:03,112 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179/click {}
+2025-04-01 09:57:03,348 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.179/click HTTP/1.1" 200 0
+2025-04-01 09:57:03,348 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:03,348 - DEBUG - Finished Request
+2025-04-01 09:57:03,348 - INFO - Procurando arquivo com padrão '*.pdf' na pasta C:\Users\joao_silva\Downloads
+2025-04-01 09:57:06,355 - INFO - Arquivo encontrado: C:\Users\joao_silva\Downloads\0001_0014845VENDEDOR.pdf
+2025-04-01 09:57:06,356 - INFO - Extraindo informações do PDF: C:\Users\joao_silva\Downloads\0001_0014845VENDEDOR.pdf
+2025-04-01 09:57:06,416 - INFO - Encontrado: CPF/MF - 111.438.207-89
+2025-04-01 09:57:06,417 - INFO - Encontrado: Data de Nascimento - 02/12/1984
+2025-04-01 09:57:06,417 - INFO - Encontrado: Nome completo - Jorge Amaral Nascimento
+2025-04-01 09:57:06,417 - INFO - Encontrado: Celular - +55 (21) 9738-64435
+2025-04-01 09:57:06,417 - INFO - Encontrado: (e-mail pessoal ou pessoal corporativo) - supervisoroptij@gmail.com
+2025-04-01 09:57:06,418 - INFO - Encontrado: RG - 133929109
+2025-04-01 09:57:06,418 - INFO - Encontrado: Órgão Emissor - DETRAN
+2025-04-01 09:57:06,418 - INFO - Encontrado: Logradouro - Rua professor clemente ferreira
+2025-04-01 09:57:06,418 - INFO - Encontrado: Número - 1912, Complemento - 
+2025-04-01 09:57:06,419 - INFO - Encontrado: Bairro - Bangu
+2025-04-01 09:57:06,419 - INFO - Encontrado: Cidade - Rio de Janeiro
+2025-04-01 09:57:06,419 - INFO - Encontrado: Estado - Rio de Janeiro
+2025-04-01 09:57:06,420 - INFO - Encontrado: CEP - 21820-142
+2025-04-01 09:57:06,807 - INFO - Dados inseridos na linha 9 da planilha PLUXXE
+2025-04-01 09:57:06,808 - INFO - Arquivo C:\Users\joao_silva\Downloads\0001_0014845VENDEDOR.pdf excluído com sucesso.
+2025-04-01 09:57:06,808 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element {'using': 'xpath', 'value': '//*[@id="single-spa-application:@contraktor/compass"]/header/div/div/nav/div[1]/div[1]/button'}
+2025-04-01 09:57:06,827 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element HTTP/1.1" 200 0
+2025-04-01 09:57:06,827 - DEBUG - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.49"}} | headers=HTTPHeaderDict({'Content-Length': '126', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:06,827 - DEBUG - Finished Request
+2025-04-01 09:57:06,828 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync {'script': '/* isDisplayed */return (function(){return (function(){var g=this||self;\nfunction aa(a){var b=typeof...', 'args': [{'element-6066-11e4-a52e-4f735466cecf': 'f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.49'}]}
+2025-04-01 09:57:06,834 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/execute/sync HTTP/1.1" 200 0
+2025-04-01 09:57:06,835 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:06,835 - DEBUG - Finished Request
+2025-04-01 09:57:06,835 - DEBUG - GET http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.49/enabled {}
+2025-04-01 09:57:06,842 - DEBUG - http://localhost:51827 "GET /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.49/enabled HTTP/1.1" 200 0
+2025-04-01 09:57:06,843 - DEBUG - Remote response: status=200 | data={"value":true} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:06,843 - DEBUG - Finished Request
+2025-04-01 09:57:06,843 - DEBUG - POST http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.49/click {}
+2025-04-01 09:57:06,966 - DEBUG - http://localhost:51827 "POST /session/a13f932447ffb4f9a0aceb58fdc6e316/element/f.CD2F0492D1142CB595FCFE5CEE4747B5.d.E28833D8167716421086341083C1C20F.e.49/click HTTP/1.1" 200 0
+2025-04-01 09:57:06,967 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:06,967 - DEBUG - Finished Request
+2025-04-01 09:57:09,967 - INFO - 
+=== Resumo do processamento ===
+2025-04-01 09:57:09,967 - INFO - Total de contratos processados: 1
+2025-04-01 09:57:09,968 - INFO - Sucessos: 1
+2025-04-01 09:57:09,968 - INFO - Falhas: 0
+2025-04-01 09:57:09,969 - DEBUG - DELETE http://localhost:51827/session/a13f932447ffb4f9a0aceb58fdc6e316 {}
+2025-04-01 09:57:10,018 - DEBUG - http://localhost:51827 "DELETE /session/a13f932447ffb4f9a0aceb58fdc6e316 HTTP/1.1" 200 0
+2025-04-01 09:57:10,018 - DEBUG - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2025-04-01 09:57:10,018 - DEBUG - Finished Request
+2025-04-01 09:57:12,297 - INFO - Navegador fechado
