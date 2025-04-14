@@ -20,7 +20,7 @@ class ExcelProcessor:
         """
         try:
             caminho_excel = CONFIG['EXCEL_ESTEIRA']
-            logging.info(f"Lendo planilha de contratos: {caminho_excel}")
+            print(f"Lendo planilha de contratos: {caminho_excel}")
             
             df = pd.read_excel(caminho_excel, sheet_name='CONSOLIDADO', header=1)
             
@@ -32,7 +32,7 @@ class ExcelProcessor:
             contratos_lista = contratos_vigentes['Numeração'].tolist()
             
             total = len(contratos_lista)
-            logging.info(f"Total de {total} contratos pendentes encontrados")
+            print(f"Total de {total} contratos pendentes encontrados")
             
             # Aplicar limites se necessário
             if modo_teste:
@@ -75,7 +75,7 @@ class ExcelProcessor:
                 sheet.cell(row=linha_atual, column=coluna, value=valor)
 
             wb.save(pluxxe_path)
-            logging.info(f"Dados inseridos na linha {linha_atual} da planilha PLUXXE")
+            print(f"Dados inseridos na linha {linha_atual} da planilha PLUXXE")
             return True
 
         except Exception as e:

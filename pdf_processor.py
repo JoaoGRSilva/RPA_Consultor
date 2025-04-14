@@ -1,7 +1,7 @@
 import PyPDF2
 import logging
 import re
-from utils import abreviar_nome
+from utils import abreviar_nome, estado_para_uf
 
 class PDFProcessor:
     """Classe para processar arquivos PDF de contratos."""
@@ -17,7 +17,7 @@ class PDFProcessor:
         Returns:
             dict: Dicionário com informações extraídas e status
         """
-        logging.info(f"Extraindo informações do PDF: {caminho_pdf}")
+        print(f"Extraindo informações do PDF: {caminho_pdf}")
         info = {}
 
         try:
@@ -43,13 +43,13 @@ class PDFProcessor:
                                 complemento = match.group(2).strip()
                                 info["Número"] = numero
                                 info["pular8"] = complemento
-                                logging.info(f"Encontrado: Número - {numero}, Complemento - {complemento}")
+                                print(f"Encontrado: Número - {numero}, Complemento - {complemento}")
                             else:
                                 info["Número"] = valor
-                                logging.info(f"Encontrado: Número - {valor}")
+                                print(f"Encontrado: Número - {valor}")
                         else:
                             info[campo] = valor
-                            logging.info(f"Encontrado: {campo} - {valor}")
+                            print(f"Encontrado: {campo} - {valor}")
 
                 return {
                     "texto_completo": texto_completo, 
@@ -81,8 +81,8 @@ class PDFProcessor:
             'cod pluxe': "3230687",                    # Código Cliente Pluxee
             'sit ben': "Ativo",                        # Situação do beneficiário
             'Nome completo': "",                       # Nome completo
-            'CPF': "",                                 # CPF
-            'Data de nascimento': "",                  # Data de nascimento
+            'CPF/MF': "",                                 # CPF
+            'Data de Nascimento': "",                  # Data de nascimento
             'nome gravacao': "",                       # Nome para gravação no cartão
             'pular1': None,                            # Pula 1
             'pular2': None,                            # Pula 2
@@ -95,22 +95,25 @@ class PDFProcessor:
             'pular7': None,                            # Pula 7
             'local': "MATRIZ",                         # Local de entrega
             'CEP': "",                                 # CEP
-            'Endereço': "",                            # Endereço
+            'Logradouro': "",                            # Endereço
             'Número': "",                              # Número
             'Complemento': "",                         # Complemento (pula 8 quando não tem)
             'pular9': None,                            # Pula 9
             'Bairro': "",                              # Bairro
             'Cidade': "",                              # Cidade
-            'UF': "",                                  # UF
+            'Estado': "",                                  # UF
             'Responsável pelo recebimento': "",        # Responsável pelo recebimento
             'pular10': None,                           # Pula 10
             'pular11': None,                           # Pula 11
-            'email do beneficiario': ""                # Email do beneficiário
+            '(e-mail pessoal ou pessoal corporativo)': ""  # Email do beneficiário
         }
         
         # Atualiza com os dados extraídos do PDF
         if dados_pdf and dados_pdf['dados_extraidos']:
-            dados_planilha.update(dados_pdf['dados_extraidos'])
+            dados_planilha.update({
+                k: v for k, v in dados_pdf['dados_extraidos'].items() if k in dados_planilha
+            })
+            dados_planilha['Estado'] = estado_para_uf(dados_planilha['Estado'])
             
             # Processar nome para abreviação
             if 'Nome completo' in dados_planilha and dados_planilha['Nome completo']:

@@ -35,16 +35,16 @@ class ContraktorBot:
         try:
             self.driver = webdriver.Chrome()
             self.driver.maximize_window()
-            logging.info("Navegador Chrome iniciado com sucesso")
+            print("Navegador Chrome iniciado com sucesso")
             return True
         except Exception as e:
-            logging.error(f"Erro ao iniciar navegador: {e}")
+            print(f"Erro ao iniciar navegador: {e}")
             return False
             
     def login(self):
         """Realiza login no sistema Contraktor."""
         try:
-            logging.info("Realizando login no Contraktor...")
+            print("Realizando login no Contraktor...")
             self.driver.get(CONFIG['URL_LOGIN'])
 
             user_input = aguardar_elemento(self.driver, By.ID, Selectors.LOGIN_EMAIL)
@@ -58,7 +58,7 @@ class ContraktorBot:
 
             # Aguarda a mudança de URL para confirmar login
             WebDriverWait(self.driver, 10).until(EC.url_changes(CONFIG['URL_LOGIN']))
-            logging.info("Login realizado com sucesso!")
+            print("Login realizado com sucesso!")
             return True
             
         except Exception as e:
@@ -76,7 +76,7 @@ class ContraktorBot:
             dict: Resultado do processamento com status
         """
         try:
-            logging.info(f"\n=== Processando contrato: {numero_contrato} ===")
+            print(f"\n=== Processando contrato: {numero_contrato} ===")
 
             # Aguardar carregamento da página
             aguardar_elemento(self.driver, By.XPATH, Selectors.LOADING_SPINNER, tipo_espera='invisibilidade')
@@ -182,14 +182,14 @@ class ContraktorBot:
                 
             # Resumo final
             sucesso = sum(1 for r in resultados if r['status'] == "Sucesso")
-            logging.info(f"\n=== Resumo do processamento ===")
-            logging.info(f"Total de contratos processados: {len(resultados)}")
-            logging.info(f"Sucessos: {sucesso}")
-            logging.info(f"Falhas: {len(resultados) - sucesso}")
+            print(f"\n=== Resumo do processamento ===")
+            print(f"Total de contratos processados: {len(resultados)}")
+            print(f"Sucessos: {sucesso}")
+            print(f"Falhas: {len(resultados) - sucesso}")
             
         except Exception as e:
             logging.error(f"Erro durante a execução: {e}")
         finally:
             if self.driver:
                 self.driver.quit()
-                logging.info("Navegador fechado")
+                print("Navegador fechado")

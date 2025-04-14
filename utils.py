@@ -37,7 +37,7 @@ def abreviar_nome(nome_completo):
         
     primeiro_nome = partes[0]
     ultimo_nome = partes[-1]
-    nomes_abreviados = [f"{parte[0]}." for parte in partes[1:-1]]
+    nomes_abreviados = [parte[0].upper() for parte in partes[1:-1]]
     return f"{primeiro_nome} {' '.join(nomes_abreviados)} {ultimo_nome}"
 
 # Dicionário de estados para UFs
@@ -96,7 +96,7 @@ def encontrar_arquivo_recente(pasta, padrao="*.pdf", timeout=None):
     if timeout is None:
         timeout = CONFIG['PDF_TIMEOUT']
         
-    logging.info(f"Procurando arquivo com padrão '{padrao}' na pasta {pasta}")
+    print(f"Procurando arquivo com padrão '{padrao}' na pasta {pasta}")
     tempo_inicio = time.time()
 
     while time.time() - tempo_inicio < timeout:
@@ -109,7 +109,7 @@ def encontrar_arquivo_recente(pasta, padrao="*.pdf", timeout=None):
             tamanho_inicial = os.path.getsize(arquivo_mais_recente)
             time.sleep(1)
             if os.path.getsize(arquivo_mais_recente) == tamanho_inicial:
-                logging.info(f"Arquivo encontrado: {arquivo_mais_recente}")
+                print(f"Arquivo encontrado: {arquivo_mais_recente}")
                 return arquivo_mais_recente
         time.sleep(2)
 
@@ -120,6 +120,6 @@ def excluir_arquivo(arquivo):
     """Remove um arquivo do sistema."""
     try:
         os.remove(arquivo)
-        logging.info(f"Arquivo {arquivo} excluído com sucesso.")
+        print(f"Arquivo {arquivo} excluído com sucesso.")
     except Exception as e:
         logging.error(f"Erro ao excluir o arquivo {arquivo}: {e}")
