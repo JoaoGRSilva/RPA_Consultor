@@ -14,4 +14,5 @@ CONFIG = {
     'LOG_FILE': 'erros_contratos.txt',
     'DEFAULT_TIMEOUT': 60,
     'PDF_TIMEOUT': 10,
+    'ATTEMPTS': 3
 }

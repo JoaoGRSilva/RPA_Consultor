@@ -81,7 +81,7 @@ class PDFProcessor:
             'cod pluxe': "3230687",                    # Código Cliente Pluxee
             'sit ben': "Ativo",                        # Situação do beneficiário
             'Nome completo': "",                       # Nome completo
-            'CPF/MF': "",                                 # CPF
+            'CPF/MF': "",                              # CPF
             'Data de Nascimento': "",                  # Data de nascimento
             'nome gravacao': "",                       # Nome para gravação no cartão
             'pular1': None,                            # Pula 1
@@ -95,13 +95,13 @@ class PDFProcessor:
             'pular7': None,                            # Pula 7
             'local': "MATRIZ",                         # Local de entrega
             'CEP': "",                                 # CEP
-            'Logradouro': "",                            # Endereço
+            'Logradouro': "",                          # Endereço
             'Número': "",                              # Número
             'Complemento': "",                         # Complemento (pula 8 quando não tem)
             'pular9': None,                            # Pula 9
             'Bairro': "",                              # Bairro
             'Cidade': "",                              # Cidade
-            'Estado': "",                                  # UF
+            'Estado': "",                              # UF
             'Responsável pelo recebimento': "",        # Responsável pelo recebimento
             'pular10': None,                           # Pula 10
             'pular11': None,                           # Pula 11

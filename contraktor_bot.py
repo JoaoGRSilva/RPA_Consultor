@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 import logging
 import time
 from selenium.webdriver.support.ui import WebDriverWait
-from utils import aguardar_elemento, encontrar_arquivo_recente, excluir_arquivo
+from utils import aguardar_elemento, encontrar_arquivo_recente, excluir_arquivo, try_click
 from config import CONFIG
 from selectors_1 import Selectors
 from pdf_processor import PDFProcessor
@@ -54,11 +54,13 @@ class ContraktorBot:
             pwd_input.send_keys(CONFIG['PASSWORD'])
 
             botao_login = aguardar_elemento(self.driver, By.XPATH, Selectors.LOGIN_BUTTON, tipo_espera='clicavel')
-            botao_login.click()
+            try_click(botao_login)
 
             # Aguarda a mudança de URL para confirmar login
             WebDriverWait(self.driver, 10).until(EC.url_changes(CONFIG['URL_LOGIN']))
             print("Login realizado com sucesso!")
+            print("Sleep para o primeiro contrato...")
+            time.sleep(2)
             return True
             
         except Exception as e:
@@ -83,10 +85,10 @@ class ContraktorBot:
 
             # Selecionar tipo de busca (Número)
             dropdown = aguardar_elemento(self.driver, By.XPATH, Selectors.SEARCH_DROPDOWN, tipo_espera='clicavel')
-            dropdown.click()
+            try_click(dropdown)
 
             opcao_numero = aguardar_elemento(self.driver, By.XPATH, Selectors.SEARCH_OPTION_NUMERO, tipo_espera='clicavel')
-            opcao_numero.click()
+            try_click(opcao_numero)
 
             # Preencher número de contrato
             campo_busca = aguardar_elemento(self.driver, By.XPATH, Selectors.SEARCH_INPUT)
@@ -95,24 +97,29 @@ class ContraktorBot:
 
             # Clicar no botão de busca
             botao_busca = aguardar_elemento(self.driver, By.XPATH, Selectors.SEARCH_BUTTON, tipo_espera='clicavel')
-            botao_busca.click()
+            try_click(botao_busca)
 
             # Clicar no link do contrato
             link_contrato = aguardar_elemento(self.driver, By.XPATH, Selectors.CONTRACT_LINK, tipo_espera='clicavel')
-            link_contrato.click()
+            try_click(link_contrato)
 
             # Clicar no botão de download
             botao_download = aguardar_elemento(self.driver, By.XPATH, Selectors.DOWNLOAD_BUTTON, tipo_espera='clicavel')
-            botao_download.click()
+            try_click(botao_download)
 
             # Encontrar arquivo baixado
             arquivo_pdf = encontrar_arquivo_recente(CONFIG['DOWNLOAD_FOLDER'])
 
             if arquivo_pdf is None:
                 logging.error("Arquivo PDF não encontrado após o download")
+                
+                # Voltar para a tela de busca
+                botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
+                try_click(botao_voltar)
+
                 return {
                     "numero": numero_contrato, 
-                    "status": "Erro: Arquivo PDF não encontrado", 
+                    "status": "Falha", 
                     "arquivo": None
                 }
 
@@ -121,28 +128,52 @@ class ContraktorBot:
             
             # Preparar dados para a planilha
             dados_planilha = PDFProcessor.preparar_dados_para_planilha(pdf_info)
-            
-            # Preencher planilha
-            ExcelProcessor.preencher_planilha(dados_planilha)
-            
+
+            if dados_planilha['Nome completo'] == "":
+                # Excluir arquivo PDF
+                excluir_arquivo(arquivo_pdf)
+                
+                # Voltar para a tela de busca
+                botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
+                try_click(botao_voltar)
+
+                return {
+                "numero": numero_contrato, 
+                "status": "Falha", 
+                "arquivo": None
+            }
+
+
+            if dados_planilha is not None:     
+                # Preencher planilha
+                ExcelProcessor.preencher_planilha(dados_planilha)
+                
+                # Excluir arquivo PDF
+                excluir_arquivo(arquivo_pdf)
+                
+                # Voltar para a tela de busca
+                botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
+                try_click(botao_voltar)
+
+                return {
+                    "numero": numero_contrato, 
+                    "status": "Sucesso", 
+                    "arquivo": arquivo_pdf
+                }
+
+        except Exception as e:
+            logging.error(f"Erro ao processar contrato {numero_contrato}: {e}")
+
             # Excluir arquivo PDF
             excluir_arquivo(arquivo_pdf)
             
             # Voltar para a tela de busca
             botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
-            botao_voltar.click()
+            try_click(botao_voltar)            
 
             return {
                 "numero": numero_contrato, 
-                "status": "Sucesso", 
-                "arquivo": arquivo_pdf
-            }
-
-        except Exception as e:
-            logging.error(f"Erro ao processar contrato {numero_contrato}: {e}")
-            return {
-                "numero": numero_contrato, 
-                "status": f"Erro: {str(e)}", 
+                "status": "Falha", 
                 "arquivo": None
             }
             
@@ -169,7 +200,7 @@ class ContraktorBot:
             if not contratos:
                 logging.warning("Nenhum contrato pendente encontrado para processamento")
                 return
-                
+
             # Processar cada contrato
             resultados = []
             for idx, numero_contrato in enumerate(contratos):
@@ -182,10 +213,17 @@ class ContraktorBot:
                 
             # Resumo final
             sucesso = sum(1 for r in resultados if r['status'] == "Sucesso")
+
+            contratos_erro = []
+            for r in resultados:
+                if r['status'] == "Falha":
+                    contratos_erro.append(r['numero'])
+
             print(f"\n=== Resumo do processamento ===")
             print(f"Total de contratos processados: {len(resultados)}")
             print(f"Sucessos: {sucesso}")
             print(f"Falhas: {len(resultados) - sucesso}")
+            print(f"Contratos com falha: {contratos_erro}")
             
         except Exception as e:
             logging.error(f"Erro durante a execução: {e}")

@@ -2,11 +2,11 @@ import logging
 import time
 import glob
 import os
-import re
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import ElementClickInterceptedException
 from config import CONFIG
 
 def setup_logging():
@@ -40,7 +40,7 @@ def abreviar_nome(nome_completo):
     nomes_abreviados = [parte[0].upper() for parte in partes[1:-1]]
     return f"{primeiro_nome} {' '.join(nomes_abreviados)} {ultimo_nome}"
 
-# Dicionário de estados para UFs
+
 ESTADOS_UF = {
     "Acre": "AC", "Alagoas": "AL", "Amapá": "AP", "Amazonas": "AM", "Bahia": "BA", "Ceará": "CE",
     "Distrito Federal": "DF", "Espírito Santo": "ES", "Goiás": "GO", "Maranhão": "MA", "Mato Grosso": "MT",
@@ -120,6 +120,16 @@ def excluir_arquivo(arquivo):
     """Remove um arquivo do sistema."""
     try:
         os.remove(arquivo)
-        print(f"Arquivo {arquivo} excluído com sucesso.")
+        print(f"Arquivo {arquivo} excluído com sucesso.\n")
     except Exception as e:
         logging.error(f"Erro ao excluir o arquivo {arquivo}: {e}")
+
+def try_click(element):
+    tentativas = CONFIG['ATTEMPTS']
+
+    for _ in range(tentativas):
+        try:
+            element.click()
+            break
+        except ElementClickInterceptedException:
+            time.sleep(2)
