@@ -78,7 +78,7 @@ def aguardar_elemento(driver, by, valor, tipo_espera='presenca', tempo=None):
         elif tipo_espera == 'invisibilidade':
             return WebDriverWait(driver, tempo).until(EC.invisibility_of_element_located((by, valor)))
     except TimeoutException:
-        logging.error(f"Timeout ao esperar pelo elemento: {valor}")
+        print(f"Timeout ao esperar pelo elemento: {valor}")
         return None
 
 def encontrar_arquivo_recente(pasta, padrao="*.pdf", timeout=None):
@@ -113,16 +113,15 @@ def encontrar_arquivo_recente(pasta, padrao="*.pdf", timeout=None):
                 return arquivo_mais_recente
         time.sleep(2)
 
-    logging.warning(f"Timeout: Nenhum arquivo encontrado após {timeout} segundos")
+    print(f"Timeout: Nenhum arquivo encontrado após {timeout} segundos")
     return None
 
 def excluir_arquivo(arquivo):
     """Remove um arquivo do sistema."""
     try:
         os.remove(arquivo)
-        print(f"Arquivo {arquivo} excluído com sucesso.\n")
     except Exception as e:
-        logging.error(f"Erro ao excluir o arquivo {arquivo}: {e}")
+        print(f"Erro ao excluir o arquivo {arquivo}: {e}")
 
 def try_click(element):
     tentativas = CONFIG['ATTEMPTS']

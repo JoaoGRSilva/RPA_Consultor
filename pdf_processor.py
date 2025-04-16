@@ -17,7 +17,6 @@ class PDFProcessor:
         Returns:
             dict: Dicionário com informações extraídas e status
         """
-        print(f"Extraindo informações do PDF: {caminho_pdf}")
         info = {}
 
         try:
@@ -43,13 +42,11 @@ class PDFProcessor:
                                 complemento = match.group(2).strip()
                                 info["Número"] = numero
                                 info["pular8"] = complemento
-                                print(f"Encontrado: Número - {numero}, Complemento - {complemento}")
                             else:
-                                info["Número"] = valor
-                                print(f"Encontrado: Número - {valor}")
+                                info["Número"] = valor 
                         else:
                             info[campo] = valor
-                            print(f"Encontrado: {campo} - {valor}")
+                            
 
                 return {
                     "texto_completo": texto_completo, 

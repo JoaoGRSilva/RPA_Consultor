@@ -1,3 +1,4 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -34,7 +35,7 @@ class ContraktorBot:
         """Inicia o navegador Chrome."""
         try:
             self.driver = webdriver.Chrome()
-            self.driver.maximize_window()
+            self.driver.minimize_window()
             print("Navegador Chrome iniciado com sucesso")
             return True
         except Exception as e:
@@ -61,10 +62,11 @@ class ContraktorBot:
             print("Login realizado com sucesso!")
             print("Sleep para o primeiro contrato...")
             time.sleep(2)
+            os.system("cls")
             return True
             
         except Exception as e:
-            logging.error(f"Erro durante o login: {e}")
+            print(f"Erro durante o login: {e}")
             return False
             
     def processar_contrato(self, numero_contrato):
@@ -77,6 +79,8 @@ class ContraktorBot:
         Returns:
             dict: Resultado do processamento com status
         """
+        arquivo_pdf = None
+
         try:
             print(f"\n=== Processando contrato: {numero_contrato} ===")
 
@@ -111,7 +115,7 @@ class ContraktorBot:
             arquivo_pdf = encontrar_arquivo_recente(CONFIG['DOWNLOAD_FOLDER'])
 
             if arquivo_pdf is None:
-                logging.error("Arquivo PDF não encontrado após o download")
+                print("Arquivo PDF não encontrado após o download")
                 
                 # Voltar para a tela de busca
                 botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
@@ -198,12 +202,13 @@ class ContraktorBot:
             contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
             
             if not contratos:
-                logging.warning("Nenhum contrato pendente encontrado para processamento")
+                print("Nenhum contrato pendente encontrado para processamento")
                 return
 
             # Processar cada contrato
             resultados = []
             for idx, numero_contrato in enumerate(contratos):
+                os.system("cls")
                 logging.info(f"Processando contrato {idx + 1}/{len(contratos)}: {numero_contrato}")
                 resultado = self.processar_contrato(numero_contrato)
                 resultados.append(resultado)
@@ -219,6 +224,7 @@ class ContraktorBot:
                 if r['status'] == "Falha":
                     contratos_erro.append(r['numero'])
 
+            os.system("cls")
             print(f"\n=== Resumo do processamento ===")
             print(f"Total de contratos processados: {len(resultados)}")
             print(f"Sucessos: {sucesso}")
@@ -226,7 +232,7 @@ class ContraktorBot:
             print(f"Contratos com falha: {contratos_erro}")
             
         except Exception as e:
-            logging.error(f"Erro durante a execução: {e}")
+            print(f"Erro durante a execução: {e}")
         finally:
             if self.driver:
                 self.driver.quit()
