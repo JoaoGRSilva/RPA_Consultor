@@ -1,9 +1,12 @@
 import os
+import subprocess
+import time
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import logging
-import time
+import win32gui
+import win32con
 from selenium.webdriver.support.ui import WebDriverWait
 from utils import aguardar_elemento, encontrar_arquivo_recente, excluir_arquivo, try_click
 from config import CONFIG
@@ -17,6 +20,7 @@ class ContraktorBot:
     def __init__(self):
         self.driver = None
         self.setup_logging()
+        self.cmd_process = None
         
     def setup_logging(self):
         """Configura o sistema de logging."""
@@ -30,16 +34,61 @@ class ContraktorBot:
         console.setLevel(logging.INFO)
         console.setFormatter(logging.Formatter('%(message)s'))
         logging.getLogger('').addHandler(console)
-        
+    
+    def posicionar_janelas(self):
+        """Posiciona as janelas do navegador e prompt de comando lado a lado."""
+        try:
+            # Obter informações sobre a resolução da tela
+            import ctypes
+            user32 = ctypes.windll.user32
+            screen_width = user32.GetSystemMetrics(0)
+            screen_height = user32.GetSystemMetrics(1)
+            
+            # Calcular tamanhos para divisão da tela
+            browser_width = screen_width // 2
+            cmd_width = screen_width - browser_width
+            
+            # Posicionar o navegador à esquerda
+            hwnd_chrome = win32gui.FindWindow(None, "Contraktor - Google Chrome")
+            if hwnd_chrome:
+                win32gui.SetWindowPos(hwnd_chrome, win32con.HWND_TOP, 0, 0, 
+                                      browser_width, screen_height, win32con.SWP_SHOWWINDOW)
+            
+            # Posicionar o prompt de comando à direita
+            hwnd_cmd = win32gui.FindWindow(None, "Prompt de comando - python")
+            if hwnd_cmd:
+                win32gui.SetWindowPos(hwnd_cmd, win32con.HWND_TOP, browser_width, 0, 
+                                     cmd_width, screen_height, win32con.SWP_SHOWWINDOW)
+            
+            print("Janelas posicionadas com sucesso")
+            return True
+        except Exception as e:
+            print(f"Erro ao posicionar janelas: {e}")
+            return False
+            
     def iniciar_navegador(self):
         """Inicia o navegador Chrome."""
         try:
             self.driver = webdriver.Chrome()
-            self.driver.minimize_window()
+            self.driver.maximize_window()
+            # Renomear a janela do Chrome para facilitar sua identificação
+            self.driver.execute_script("document.title = 'Contraktor - Google Chrome'")
             print("Navegador Chrome iniciado com sucesso")
             return True
         except Exception as e:
             print(f"Erro ao iniciar navegador: {e}")
+            return False
+    
+    def iniciar_prompt(self):
+        """Inicia uma nova janela do prompt de comando para logs."""
+        try:
+            # Inicia um novo prompt de comando com título personalizado
+            self.cmd_process = subprocess.Popen(['cmd.exe', '/k', 'title Prompt de comando - python'])
+            print("Prompt de comando iniciado com sucesso")
+            time.sleep(1)  # Pequena pausa para o prompt iniciar
+            return True
+        except Exception as e:
+            print(f"Erro ao iniciar prompt de comando: {e}")
             return False
             
     def login(self):
@@ -62,19 +111,22 @@ class ContraktorBot:
             print("Login realizado com sucesso!")
             print("Sleep para o primeiro contrato...")
             time.sleep(2)
-            os.system("cls")
+            
+            # Não limpar o console mais para manter o layout
             return True
             
         except Exception as e:
             print(f"Erro durante o login: {e}")
             return False
             
-    def processar_contrato(self, numero_contrato):
+    def processar_contrato(self, numero_contrato, idx, total):
         """
         Processa um contrato específico.
         
         Args:
             numero_contrato: Número do contrato a ser processado
+            idx: Índice atual do contrato
+            total: Total de contratos
             
         Returns:
             dict: Resultado do processamento com status
@@ -82,7 +134,7 @@ class ContraktorBot:
         arquivo_pdf = None
 
         try:
-            print(f"\n=== Processando contrato: {numero_contrato} ===")
+            print(f"\n=== Processando contrato {idx}/{total}: {numero_contrato} ===")
 
             # Aguardar carregamento da página
             aguardar_elemento(self.driver, By.XPATH, Selectors.LOADING_SPINNER, tipo_espera='invisibilidade')
@@ -190,9 +242,17 @@ class ContraktorBot:
             modo_teste: Se True, processa apenas o primeiro contrato
         """
         try:
+            # Iniciar prompt de comando separado
+            if not self.iniciar_prompt():
+                return
+                
             # Iniciar navegador
             if not self.iniciar_navegador():
                 return
+                
+            # Posicionar janelas lado a lado
+            time.sleep(2)  # Pequena pausa para garantir que as janelas estejam prontas
+            self.posicionar_janelas()
                 
             # Realizar login
             if not self.login():
@@ -208,9 +268,9 @@ class ContraktorBot:
             # Processar cada contrato
             resultados = []
             for idx, numero_contrato in enumerate(contratos):
-                os.system("cls")
+                # Não limpar o console mais para manter o layout
                 logging.info(f"Processando contrato {idx + 1}/{len(contratos)}: {numero_contrato}")
-                resultado = self.processar_contrato(numero_contrato)
+                resultado = self.processar_contrato(numero_contrato, idx + 1, len(contratos))
                 resultados.append(resultado)
                 
                 # Pequena pausa entre contratos
@@ -224,7 +284,7 @@ class ContraktorBot:
                 if r['status'] == "Falha":
                     contratos_erro.append(r['numero'])
 
-            os.system("cls")
+            # Não limpar o console
             print(f"\n=== Resumo do processamento ===")
             print(f"Total de contratos processados: {len(resultados)}")
             print(f"Sucessos: {sucesso}")
@@ -237,3 +297,6 @@ class ContraktorBot:
             if self.driver:
                 self.driver.quit()
                 print("Navegador fechado")
+            if self.cmd_process:
+                self.cmd_process.terminate()
+                print("Prompt de comando fechado")

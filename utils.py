@@ -96,24 +96,17 @@ def encontrar_arquivo_recente(pasta, padrao="*.pdf", timeout=None):
     if timeout is None:
         timeout = CONFIG['PDF_TIMEOUT']
         
-    print(f"Procurando arquivo com padrão '{padrao}' na pasta {pasta}")
+    arquivos_antes = set(glob.glob(os.path.join(pasta, padrao)))
     tempo_inicio = time.time()
 
     while time.time() - tempo_inicio < timeout:
-        caminho_padrao = os.path.join(pasta, padrao)
-        arquivos_encontrados = glob.glob(caminho_padrao)
+        arquivos_agora = set(glob.glob(os.path.join(pasta, padrao)))
+        novos_arquivos = list(arquivos_agora - arquivos_antes)
 
-        if arquivos_encontrados:
-            arquivo_mais_recente = max(arquivos_encontrados, key=os.path.getmtime)
-            # Verifica se o arquivo está completo (não está sendo escrito)
-            tamanho_inicial = os.path.getsize(arquivo_mais_recente)
-            time.sleep(1)
-            if os.path.getsize(arquivo_mais_recente) == tamanho_inicial:
-                print(f"Arquivo encontrado: {arquivo_mais_recente}")
-                return arquivo_mais_recente
-        time.sleep(2)
-
-    print(f"Timeout: Nenhum arquivo encontrado após {timeout} segundos")
+        if novos_arquivos:
+            novos_arquivos.sort(key=lambda x: os.path.getctime(x))
+            return novos_arquivos[-1]
+        time.sleep(1)
     return None
 
 def excluir_arquivo(arquivo):
