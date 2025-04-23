@@ -25,7 +25,6 @@ def build_executable():
         '--name=ContraktorBot',         # Nome do executável
         '--onefile',                    # Arquivo único
         '--windowed',                   # Sem janela de console
-        '--add-data=chromedriver.exe;.',  # Adicionar chromedriver (se necessário)
         '--hidden-import=selenium',     # Importações ocultas
         '--hidden-import=openpyxl',
         '--clean',                      # Limpar cache
