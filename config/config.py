@@ -1,11 +1,19 @@
+import sys
 import os
+import glob
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Diretório do executável (ou script quando em desenvolvimento)
+exec_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
 home_dir = os.path.expanduser('~')
 afinz_dir = os.path.join(home_dir, 'SOROCRED – CREDITO, FINANCIAMENTO E INVESTIMENTO S')
 esteira_dir = os.path.join(afinz_dir, 'Esteira de Integração - Documentos')
+
+# Encontrar qualquer arquivo .xlsx no diretório do executável
+xlsx_files = glob.glob(os.path.join(exec_dir, '*.xlsx'))
+excel_pluxxe = xlsx_files[0] if xlsx_files else 'pluxxe.xlsx'  # Usa o primeiro encontrado ou o padrão
 
 CONFIG = {
     'URL_LOGIN': 'https://app.contraktor.com.br/contratos',
@@ -13,8 +21,8 @@ CONFIG = {
     'PASSWORD': os.getenv('CONTRAKTOR_PASSWORD', 'default_password'),
     'DOWNLOAD_FOLDER': os.path.join(home_dir, 'Downloads'),
     'EXCEL_ESTEIRA': os.path.join(esteira_dir, 'ESTEIRA.xlsx'),
-    'EXCEL_PLUXXE': os.path.join(home_dir, 'Downloads', 'PLANSIP4C.xlsx'),
-    'LOG_FILE': 'erros_contratos.txt',
+    'EXCEL_PLUXXE': excel_pluxxe,  # Usa o arquivo encontrado
+    'LOG_FILE': os.path.join(exec_dir, 'erros_contratos.txt'),  # Log no diretório do executável
     'DEFAULT_TIMEOUT': 60,
     'PDF_TIMEOUT': 10,
     'ATTEMPTS': 3

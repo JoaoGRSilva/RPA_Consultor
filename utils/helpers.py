@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import ElementClickInterceptedException
-from config import CONFIG
+from config.config import CONFIG
 
 def setup_logging():
     """Configura o sistema de logging."""
