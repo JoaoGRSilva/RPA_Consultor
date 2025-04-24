@@ -1,7 +1,7 @@
 import logging
 import time
 import glob
-import os
+import os, re
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -37,7 +37,12 @@ def abreviar_nome(nome_completo):
         
     primeiro_nome = partes[0]
     ultimo_nome = partes[-1]
-    nomes_abreviados = [parte[0].upper() for parte in partes[1:-1]]
+    preposicoes = ['da', 'de', 'do', 'das', 'dos']
+    nomes_abreviados = []
+    for parte in partes[1:-1]:
+        if parte.lower() not in preposicoes:
+            nomes_abreviados.append(parte[0].upper())
+    
     return f"{primeiro_nome} {' '.join(nomes_abreviados)} {ultimo_nome}"
 
 
@@ -125,3 +130,25 @@ def try_click(element):
             break
         except ElementClickInterceptedException:
             time.sleep(2)
+
+def split_numero(celular):
+    """
+    Quebra o número de telefone, removendo o +55, separando o DDD do número
+
+    Agrs:
+        celular (str): Telefone completo do consultor
+
+    returns:
+        tuple: (DDD, numero)
+
+    """
+    celular = celular.strip()
+    celular = re.sub(r'^\+?55\s*', '', celular)
+    celular = re.sub(r'[^\d]', '', celular)
+    match = re.match(r'(\d{2})(\d{8,9})$', celular)
+    
+    if match:
+        ddd = match.group(1)
+        numero = match.group(2)
+        return ddd, numero
+    return None, None

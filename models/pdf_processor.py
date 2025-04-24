@@ -1,7 +1,7 @@
 import PyPDF2
 import logging
 import re
-from utils import abreviar_nome, estado_para_uf
+from utils import abreviar_nome, estado_para_uf, split_numero
 
 class PDFProcessor:
     """Classe para processar arquivos PDF de contratos."""
@@ -27,7 +27,7 @@ class PDFProcessor:
                 campos_busca = [
                     "CPF/MF", "Data de Nascimento", "Nome completo", "Celular", 
                     "(e-mail pessoal ou pessoal corporativo)", "RG", "Órgão Emissor", 
-                    "Logradouro", "Número", "Bairro", "Cidade", "Estado", "CEP"
+                    "Logradouro", "Número", "Bairro", "Cidade", "Estado", "CEP", "Celular"
                 ]
 
                 for campo in campos_busca:
@@ -41,7 +41,7 @@ class PDFProcessor:
                                 numero = match.group(1)
                                 complemento = match.group(2).strip()
                                 info["Número"] = numero
-                                info["pular8"] = complemento
+                                info["Complemento"] = complemento
                             else:
                                 info["Número"] = valor 
                         else:
@@ -94,14 +94,14 @@ class PDFProcessor:
             'CEP': "",                                 # CEP
             'Logradouro': "",                          # Endereço
             'Número': "",                              # Número
-            'Complemento': "",                         # Complemento (pula 8 quando não tem)
+            'Complemento': "",                         # Complemento
             'pular9': None,                            # Pula 9
             'Bairro': "",                              # Bairro
             'Cidade': "",                              # Cidade
             'Estado': "",                              # UF
             'Responsável pelo recebimento': "",        # Responsável pelo recebimento
-            'pular10': None,                           # Pula 10
-            'pular11': None,                           # Pula 11
+            'DDD': None,                               # DDD do telefone
+            'Celular': None,                           # Número do telefone
             '(e-mail pessoal ou pessoal corporativo)': ""  # Email do beneficiário
         }
         
@@ -118,6 +118,19 @@ class PDFProcessor:
                 nome_abreviado = abreviar_nome(nome)
                 dados_planilha["nome gravacao"] = nome_abreviado
                 dados_planilha["Responsável pelo recebimento"] = nome_abreviado
+
+            if 'Celular' in dados_planilha and dados_planilha['Celular']:
+                telefone = dados_planilha['Celular'].strip()
+                ddd, numero = split_numero(telefone)
+                dados_planilha['DDD'] = ddd
+                dados_planilha['Celular'] = numero
+            
+
+            #Remover o - do cep
+            if 'CEP' in dados_planilha and dados_planilha['CEP']:
+                cep = dados_planilha['CEP']
+                cep_sem_hifen = cep.replace("-","")
+                dados_planilha['CEP'] = cep_sem_hifen
                 
             # Verifica se Complemento está vazio e o substitui por None (pula 8)
             if 'Complemento' in dados_planilha and not dados_planilha['Complemento']:

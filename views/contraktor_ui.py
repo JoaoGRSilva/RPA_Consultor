@@ -84,9 +84,6 @@ class ContraktorBotUI:
                                        command=self.iniciar_processamento, width=15)
         self.botao_iniciar.pack(side=tk.LEFT, padx=5)
         
-        # Campo de status
-        self.status_field = tk.Entry(config_frame, width=50, bg=self.COR_ENTRADA, relief=tk.FLAT, state="readonly")
-        self.status_field.grid(column=0, row=3, sticky=(tk.W, tk.E), padx=5, pady=5)
         
         # Frame de progresso
         progress_frame = tk.LabelFrame(main_frame, text="Andamento", bg=self.COR_FUNDO, fg=self.COR_TEXTO, padx=10, pady=10)
@@ -138,12 +135,7 @@ class ContraktorBotUI:
             self.progressbar["value"] = (atual / total) * 100
             self.total_field.delete(0, tk.END)
             self.total_field.insert(0, f"{atual}/{total}")
-            
-            # Atualizar campo de status
-            self.status_field.config(state=tk.NORMAL)
-            self.status_field.delete(0, tk.END)
-            self.status_field.insert(0, f"Processando contrato {atual} de {total}")
-            self.status_field.config(state="readonly")
+    
     
     def atualizar_tempo_estimado(self, segundos_restantes):
         """Atualiza o tempo estimado restante"""
@@ -174,12 +166,7 @@ class ContraktorBotUI:
         self.progressbar["value"] = 0
         self.tempo_field.delete(0, tk.END)
         self.total_field.delete(0, tk.END)
-        
-        # Atualizar status
-        self.status_field.config(state=tk.NORMAL)
-        self.status_field.delete(0, tk.END)
-        self.status_field.insert(0, "Iniciando processamento...")
-        self.status_field.config(state="readonly")
+
         
         # Desabilitar botões durante o processamento
         self.botao_iniciar.config(state=tk.DISABLED)
@@ -228,12 +215,5 @@ class ContraktorBotUI:
         """Atualiza a interface ao finalizar o processamento"""
         self.is_running = False
         self.botao_iniciar.config(state=tk.NORMAL)
-
-        
-        # Atualizar status
-        self.status_field.config(state=tk.NORMAL)
-        self.status_field.delete(0, tk.END)
-        self.status_field.insert(0, "Processamento finalizado")
-        self.status_field.config(state="readonly")
         
         self.log_queue.put("\n--- Processamento finalizado ---\n")

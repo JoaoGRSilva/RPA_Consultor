@@ -264,15 +264,11 @@ class ContraktorBot:
                     tempo_medio = sum(self.tempos_processamento) / len(self.tempos_processamento)
                     tempo_restante = tempo_medio * (total_contratos - idx)
                     tempo_restante_formatado = str(timedelta(seconds=int(tempo_restante)))
-                    
-                    print(f"Progresso: {idx}/{total_contratos} | "
-                          f"Tempo estimado restante: {tempo_restante_formatado}")
-                    
+                                        
                     # Atualizar UI com tempo estimado
                     if self.ui:
                         self.ui.root.after(0, self.ui.atualizar_tempo_estimado, tempo_restante)
                 
-                logging.info(f"Processando contrato {idx + 1}/{total_contratos}: {numero_contrato}")
                 resultado = self.processar_contrato(numero_contrato, idx + 1, total_contratos)
                 resultados.append(resultado)
                 
