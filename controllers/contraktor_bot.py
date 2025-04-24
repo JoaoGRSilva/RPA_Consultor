@@ -263,15 +263,14 @@ class ContraktorBot:
                 if self.tempos_processamento and idx < total_contratos - 1:
                     tempo_medio = sum(self.tempos_processamento) / len(self.tempos_processamento)
                     tempo_restante = tempo_medio * (total_contratos - idx)
-                    tempo_restante_formatado = str(timedelta(seconds=int(tempo_restante)))
-                                        
+
                     # Atualizar UI com tempo estimado
                     if self.ui:
                         self.ui.root.after(0, self.ui.atualizar_tempo_estimado, tempo_restante)
                 
                 resultado = self.processar_contrato(numero_contrato, idx + 1, total_contratos)
                 resultados.append(resultado)
-                
+
                 # Calcula o tempo que levou para processar este contrato
                 tempo_contrato = time.time() - tempo_inicio_contrato
                 self.tempos_processamento.append(tempo_contrato)
@@ -285,6 +284,9 @@ class ContraktorBot:
             
             # Resumo final
             sucesso = sum(1 for r in resultados if r['status'] == "Sucesso")
+
+            # 
+            ExcelProcessor.atualizar_esteira(resultados, CONFIG['EXCEL_CONTRATOS'])
 
             contratos_erro = []
             for r in resultados:
