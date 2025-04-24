@@ -68,9 +68,7 @@ Faça o download da última versão na aba Releases
 Execute o arquivo diretamente (sem necessidade de instalar dependências)
 
 🗂️ Estrutura do Projeto
-bash
-Copiar
-Editar
+```plaintext
 .
 ├── config/
 │   ├── config.py
@@ -93,6 +91,8 @@ Editar
 ├── main.py
 ├── piloto.xlsx
 └── requirements.txt
+```
+
 ⚙️ Como Usar
 Configure as credenciais e parâmetros no arquivo .env e nos arquivos de configuração.
 
