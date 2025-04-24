@@ -1,52 +1,56 @@
-🤖 # Módulo de Execução Automatizada
-📌 Descrição
-Este projeto é um sistema de RPA (Robotic Process Automation) desenvolvido em Python que automatiza a extração de informações da plataforma Contracktor e as organiza em uma planilha estruturada, pronta para integração com outros sistemas.
+# 🤖 Módulo de Execução Automatizada
 
-🎯 # Objetivo
-Automatizar o fluxo de trabalho de coleta de dados da Contracktor, eliminando extrações manuais, reduzindo erros humanos e aumentando a eficiência operacional por meio de um processo padronizado de transferência de dados entre sistemas.
+## 📌 Descrição
 
-🚀 # Funcionalidades
-🔍 Extração automatizada de dados da plataforma Contracktor
+Este projeto é um sistema de **RPA (Robotic Process Automation)** desenvolvido em **Python** que automatiza a extração de informações da plataforma **Contracktor** e as organiza em uma planilha estruturada, pronta para integração com outros sistemas.
 
-🧠 Processamento e formatação inteligente das informações
+---
 
-📊 Preenchimento automático de planilhas em formato específico
+## 🎯 Objetivo
 
-🔗 Integração facilitada com sistemas de destino
+Automatizar o fluxo de trabalho de coleta de dados da Contracktor, **eliminando extrações manuais**, **reduzindo erros humanos** e **aumentando a eficiência operacional** por meio de um processo padronizado de transferência de dados entre sistemas.
 
-🖱️ Interface simples para execução da automação
+---
 
-🛠️ # Tecnologias Utilizadas
-Python 3.x
+## 💡 Funcionalidades
 
-Selenium – Automação de navegação web
+- 🔍 Extração automatizada de dados da plataforma Contracktor  
+- 🧠 Processamento e formatação inteligente das informações  
+- 📊 Preenchimento automático de planilhas em formato específico  
+- 🔗 Integração facilitada com sistemas de destino  
+- 🖱️ Interface simples para execução da automação
 
-Pandas – Manipulação de dados
+---
 
-PyMuPDF & PyPDF2 – Leitura e processamento de arquivos PDF
+## 🛠️ Tecnologias Utilizadas
 
-Openpyxl – Manipulação de planilhas Excel
+- **Python 3.x**
+- **Selenium** – Automação de navegação web  
+- **Pandas** – Manipulação de dados  
+- **PyMuPDF & PyPDF2** – Leitura e processamento de arquivos PDF  
+- **Openpyxl** – Manipulação de planilhas Excel
 
-📦 # Requisitos
-As dependências estão listadas no arquivo requirements.txt. Principais bibliotecas:
+---
 
-text
+## 📦 Requisitos
+
+As dependências estão listadas no arquivo `requirements.txt`. Principais bibliotecas:
+
+selenium==4.29.0 pandas==2.2.3 openpyxl==3.1.5 PyMuPDF==1.25.4 PyPDF2==3.0.1 python-dotenv==1.1.0
+
+yaml
 Copiar
 Editar
-selenium==4.29.0  
-pandas==2.2.3  
-openpyxl==3.1.5  
-PyMuPDF==1.25.4  
-PyPDF2==3.0.1  
-python-dotenv==1.1.0
 
-💻 # Instalação
+---
+
+## 💻 Instalação
+
 Você pode rodar este projeto de duas formas:
 
-1. Executando o código-fonte
-bash
-Copiar
-Editar
+### 1. Executando o código-fonte
+
+```bash
 # Clonar o repositório
 git clone https://github.com/seu-usuario/modulo-execucao-automatizada.git
 cd modulo-execucao-automatizada
@@ -56,6 +60,8 @@ pip install -r requirements.txt
 
 # Executar o script principal
 python main.py
+```
+
 2. Utilizando o executável
 Faça o download da última versão na aba Releases
 
@@ -87,7 +93,6 @@ Editar
 ├── main.py
 ├── piloto.xlsx
 └── requirements.txt
-
 ⚙️ Como Usar
 Configure as credenciais e parâmetros no arquivo .env e nos arquivos de configuração.
 
