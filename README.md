@@ -1,11 +1,11 @@
-🤖 Módulo de Execução Automatizada
+🤖 #Módulo de Execução Automatizada
 📌 Descrição
 Este projeto é um sistema de RPA (Robotic Process Automation) desenvolvido em Python que automatiza a extração de informações da plataforma Contracktor e as organiza em uma planilha estruturada, pronta para integração com outros sistemas.
 
-🎯 Objetivo
+🎯 #Objetivo
 Automatizar o fluxo de trabalho de coleta de dados da Contracktor, eliminando extrações manuais, reduzindo erros humanos e aumentando a eficiência operacional por meio de um processo padronizado de transferência de dados entre sistemas.
 
-🚀 Funcionalidades
+🚀 #Funcionalidades
 🔍 Extração automatizada de dados da plataforma Contracktor
 
 🧠 Processamento e formatação inteligente das informações
@@ -16,7 +16,7 @@ Automatizar o fluxo de trabalho de coleta de dados da Contracktor, eliminando ex
 
 🖱️ Interface simples para execução da automação
 
-🛠️ Tecnologias Utilizadas
+🛠️ #Tecnologias Utilizadas
 Python 3.x
 
 Selenium – Automação de navegação web
@@ -27,7 +27,7 @@ PyMuPDF & PyPDF2 – Leitura e processamento de arquivos PDF
 
 Openpyxl – Manipulação de planilhas Excel
 
-📦 Requisitos
+📦 #Requisitos
 As dependências estão listadas no arquivo requirements.txt. Principais bibliotecas:
 
 text
@@ -39,7 +39,8 @@ openpyxl==3.1.5
 PyMuPDF==1.25.4  
 PyPDF2==3.0.1  
 python-dotenv==1.1.0
-💻 Instalação
+
+💻 #Instalação
 Você pode rodar este projeto de duas formas:
 
 1. Executando o código-fonte
@@ -86,6 +87,7 @@ Editar
 ├── main.py
 ├── piloto.xlsx
 └── requirements.txt
+
 ⚙️ Como Usar
 Configure as credenciais e parâmetros no arquivo .env e nos arquivos de configuração.
 
