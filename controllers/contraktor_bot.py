@@ -36,23 +36,6 @@ class ContraktorBot:
         console.setFormatter(logging.Formatter('%(message)s'))
         logging.getLogger('').addHandler(console)
     
-    def iniciar_prompt(self):
-        """Iniciar prompt de comando separado - mantido do código original."""
-        try:
-            # Implemente conforme necessário
-            return True
-        except Exception as e:
-            print(f"Erro ao iniciar prompt: {e}")
-            return False
-            
-    def posicionar_janelas(self):
-        """Posicionar janelas lado a lado - mantido do código original."""
-        try:
-            # Implemente conforme necessário
-            return True
-        except Exception as e:
-            print(f"Erro ao posicionar janelas: {e}")
-            return False
     
     def iniciar_navegador(self):
         """Inicia o navegador Chrome."""
@@ -220,25 +203,20 @@ class ContraktorBot:
             modo_teste: Se True, processa apenas o primeiro contrato
         """
         try:
-            # Iniciar prompt de comando separado
-            if not self.iniciar_prompt():
-                return
-                
+
+            # Ler contratos pendentes
+            contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
+
             # Iniciar navegador
             if not self.iniciar_navegador():
                 return
                 
-            # Posicionar janelas lado a lado
-            time.sleep(2)  # Pequena pausa para garantir que as janelas estejam prontas
-            self.posicionar_janelas()
+            time.sleep(2)
                 
             # Realizar login
             if not self.login():
                 return
-                
-            # Ler contratos pendentes
-            contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
-            
+
             if not contratos:
                 print("Nenhum contrato pendente encontrado para processamento")
                 return

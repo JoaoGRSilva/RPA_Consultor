@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 import pandas as pd
-import logging
+import logging, os
 from config import CONFIG
 
 class ExcelProcessor:
@@ -16,7 +16,8 @@ class ExcelProcessor:
             
             contratos_vigentes = df[(df['STATUS'] == 'Vigente') & 
                                    (df['Status Omni'] == 'Demandado Para Logística') & 
-                                   (df['CADASTRADO PLUXXE?'] == 'NÃO')]
+                                   (df['CADASTRADO PLUXXE?'] == 'NÃO') & 
+                                   (df['Processado RPA'] == 'NÃO')]
                                    
             contratos_lista = contratos_vigentes['Numeração'].tolist()
             
@@ -36,35 +37,60 @@ class ExcelProcessor:
             logging.error(f"Erro ao ler planilha de contratos: {e}")
             return []
 
-    # Na classe ExcelProcessor
     @staticmethod
     def atualizar_esteira(resultados, caminho_excel):
-        """
-        Atualiza a planilha de esteira com os resultados do processamento.
-        
-        Args:
-            resultados: Lista de dicionários com os resultados do processamento
-            caminho_excel: Caminho para a planilha de esteira
-        """
         try:
-            # Extrair apenas os dados necessários para a planilha
-            dados_planilha = []
-            for r in resultados:
-                dados_planilha.append({
-                    'Numero': r['numero'],
-                    'Status': r['status']
-                })
-                
-            df = pd.DataFrame(dados_planilha)
+            # Criar DataFrame com apenas as colunas necessárias
+            df_novos = pd.DataFrame(resultados)
+            df_novos.rename(columns={'numero': 'Contrato', 'status': 'Status'}, inplace=True)
             
-            with pd.ExcelWriter(caminho_excel, engine='openpyxl', mode='a', 
-                            if_sheet_exists='replace') as writer:
-                df.to_excel(writer, sheet_name='#RPA', index=False)
-                
-            print(f"Planilha de esteira atualizada com {len(dados_planilha)} contratos")
+            # Verificar se o arquivo existe
+            if not os.path.exists(caminho_excel):
+                df_novos.to_excel(
+                    caminho_excel, 
+                    engine='openpyxl', 
+                    sheet_name='#RPA', 
+                    index=False
+                )
+                return True
             
+            # Se existe, atualizar ou adicionar novos registros
+            try:
+                df_existente = pd.read_excel(caminho_excel, sheet_name='#RPA')
+                
+                # Mesclar os dados existentes com os novos
+                df_final = pd.concat([df_existente, df_novos]).drop_duplicates(subset=['Contrato'], keep='last')
+                
+                with pd.ExcelWriter(caminho_excel, engine='openpyxl', mode='w') as writer:
+                    df_final[['Contrato', 'Status']].to_excel(
+                        writer, 
+                        sheet_name='#RPA', 
+                        index=False
+                    )
+                    
+                print(f"Planilha atualizada: {len(df_novos)} contratos")
+                return True
+                
+            except Exception as e:
+                df_novos[['Contrato', 'Status']].to_excel(
+                    caminho_excel, 
+                    engine='openpyxl', 
+                    sheet_name='#RPA', 
+                    index=False
+                )
+                return True
+
         except Exception as e:
-            logging.error(f"Erro ao atualizar a esteira: {e}")
+            logging.error(f"Falha crítica na atualização: {str(e)}")
+            if "File is not a zip file" in str(e):
+                os.remove(caminho_excel)
+                pd.DataFrame({'Contrato': [], 'Status': []}).to_excel(
+                    caminho_excel, 
+                    engine='openpyxl', 
+                    sheet_name='#RPA',
+                    index=False
+                )
+            return False
 
     @staticmethod
     def preencher_planilha(dados, linha_inicial=7):
