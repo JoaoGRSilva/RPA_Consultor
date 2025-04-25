@@ -23,7 +23,7 @@ CONFIG = {
     'DOWNLOAD_FOLDER': os.path.join(home_dir, 'Downloads'),
     'EXCEL_ESTEIRA': os.path.join(esteira_dir, 'ESTEIRA.xlsx'),
     'EXCEL_PLUXXE': excel_pluxxe,
-    'EXCEL_CONTRATOS': os.path.join(rpa_dir, '#RPA'),
+    'EXCEL_CONTRATOS': os.path.join(rpa_dir, '#RPA.xlsx'),
     'LOG_FILE': os.path.join(exec_dir, 'erros_contratos.txt'),  # Log no diretório do executável
     'DEFAULT_TIMEOUT': 60,
     'PDF_TIMEOUT': 10,
