@@ -31,7 +31,6 @@ class ContraktorBot:
             level=logging.DEBUG,
             format='%(asctime)s - %(levelname)s - %(message)s'
         )
-        # Adicionar também log no console
         console = logging.StreamHandler()
         console.setLevel(logging.INFO)
         console.setFormatter(logging.Formatter('%(message)s'))
