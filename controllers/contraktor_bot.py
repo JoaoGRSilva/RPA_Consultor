@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 from config.config import CONFIG
 from config.selectors import Selectors
@@ -40,9 +41,13 @@ class ContraktorBot:
     def iniciar_navegador(self):
         """Inicia o navegador Chrome."""
         try:
-            self.driver = webdriver.Chrome()
+            options = Options()
+            options.add_argument("--headless")  
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--disable-gpu") 
+            options.add_argument("--disable-dev-shm-usage") 
+            self.driver = webdriver.Chrome(options=options)
             self.driver.maximize_window()
-            # Renomear a janela do Chrome para facilitar sua identificação
             self.driver.execute_script("document.title = 'Contraktor - Google Chrome'")
             print("Navegador Chrome iniciado com sucesso")
             return True
@@ -207,6 +212,10 @@ class ContraktorBot:
             # Ler contratos pendentes
             contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
 
+            if not contratos or contratos is None:
+                print("Nenhum contrato pendente encontrado para processamento")
+                return
+            
             # Iniciar navegador
             if not self.iniciar_navegador():
                 return
@@ -215,10 +224,6 @@ class ContraktorBot:
                 
             # Realizar login
             if not self.login():
-                return
-
-            if not contratos:
-                print("Nenhum contrato pendente encontrado para processamento")
                 return
 
             total_contratos = len(contratos)

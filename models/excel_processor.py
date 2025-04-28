@@ -35,7 +35,7 @@ class ExcelProcessor:
             
         except Exception as e:
             logging.error(f"Erro ao ler planilha de contratos: {e}")
-            return []
+            return None
 
     @staticmethod
     def atualizar_esteira(resultados, caminho_excel):
