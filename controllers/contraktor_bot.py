@@ -1,6 +1,4 @@
 import time
-import logging
-
 from datetime import timedelta
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,31 +10,17 @@ from config.config import CONFIG
 from config.selectors import Selectors
 from models.pdf_processor import PDFProcessor
 from models.excel_processor import ExcelProcessor
-from utils.helpers import aguardar_elemento, encontrar_arquivo_recente, excluir_arquivo, try_click
+from utils.helpers import *
 
 class ContraktorBot:
     """Classe principal para automação do Contraktor."""
-    
+
     def __init__(self, ui=None):
         self.driver = None
         self.ui = ui
-        self.setup_logging()
         self.tempos_processamento = []
         self.tempo_inicio_total = None
-        
-    def setup_logging(self):
-        """Configura o sistema de logging."""
-        logging.basicConfig(
-            filename=CONFIG['LOG_FILE'],
-            level=logging.DEBUG,
-            format='%(asctime)s - %(levelname)s - %(message)s'
-        )
-        console = logging.StreamHandler()
-        console.setLevel(logging.INFO)
-        console.setFormatter(logging.Formatter('%(message)s'))
-        logging.getLogger('').addHandler(console)
-    
-    
+
     def iniciar_navegador(self):
         """Inicia o navegador Chrome."""
         try:
@@ -48,16 +32,14 @@ class ContraktorBot:
             self.driver = webdriver.Chrome(options=options)
             self.driver.maximize_window()
             self.driver.execute_script("document.title = 'Contraktor - Google Chrome'")
-            print("Navegador Chrome iniciado com sucesso")
             return True
         except Exception as e:
             print(f"Erro ao iniciar navegador: {e}")
             return False
-            
+
     def login(self):
         """Realiza login no sistema Contraktor."""
         try:
-            print("Realizando login no Contraktor...")
             self.driver.get(CONFIG['URL_LOGIN'])
 
             user_input = aguardar_elemento(self.driver, By.ID, Selectors.LOGIN_EMAIL)
@@ -71,25 +53,24 @@ class ContraktorBot:
 
             # Aguarda a mudança de URL para confirmar login
             WebDriverWait(self.driver, 10).until(EC.url_changes(CONFIG['URL_LOGIN']))
-            print("Login realizado com sucesso!")
-            print("Sleep para o primeiro contrato...")
+            print("Acesso ao Contracktor realizado com sucesso!")
             time.sleep(2)
-            
+
             return True
-            
+
         except Exception as e:
             print(f"Erro durante o login: {e}")
             return False
-            
+
     def processar_contrato(self, numero_contrato, idx, total):
         """
         Processa um contrato específico.
-        
+
         Args:
             numero_contrato: Número do contrato a ser processado
             idx: Índice atual do contrato
             total: Total de contratos
-            
+
         Returns:
             dict: Resultado do processamento com status
         """
@@ -97,7 +78,7 @@ class ContraktorBot:
 
         try:
             print(f"\n=== Processando contrato {idx}/{total}: {numero_contrato} ===")
-            
+
             # Atualizar UI
             if self.ui:
                 self.ui.root.after(0, self.ui.atualizar_progresso, idx, total)
@@ -133,114 +114,112 @@ class ContraktorBot:
             arquivo_pdf = encontrar_arquivo_recente(CONFIG['DOWNLOAD_FOLDER'])
 
             if arquivo_pdf is None:
-                print("Arquivo PDF não encontrado após o download")
-                
-                # Voltar para a tela de busca
+                print(f"Erro: Arquivo PDF não encontrado após download do contrato {numero_contrato}")
                 botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
                 try_click(botao_voltar)
 
                 return {
-                    "numero": numero_contrato, 
-                    "status": "Falha", 
-                    "arquivo": None
+                    "numero": numero_contrato,
+                    "status": "Falha",
+                    "arquivo": None,
+                    "erro": "Arquivo PDF não encontrado após download"
                 }
 
             # Extrair informações do PDF
             pdf_info = PDFProcessor.extrair_informacoes(arquivo_pdf)
-            
-            # Preparar dados para a planilha
             dados_planilha = PDFProcessor.preparar_dados_para_planilha(pdf_info)
 
             if dados_planilha['Nome completo'] == "":
-                # Excluir arquivo PDF
                 excluir_arquivo(arquivo_pdf)
-                
-                # Voltar para a tela de busca
+                print(f"Erro: Nome completo vazio no PDF do contrato {numero_contrato}")
                 botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
                 try_click(botao_voltar)
 
                 return {
-                    "numero": numero_contrato, 
-                    "status": "Falha", 
-                    "arquivo": None
+                    "numero": numero_contrato,
+                    "status": "Falha",
+                    "arquivo": None,
+                    "erro": "Nome completo vazio no PDF"
                 }
-            
-            if dados_planilha is not None:     
-                # Preencher planilha
+
+            # Preencher planilha
+            if dados_planilha is not None:
                 ExcelProcessor.preencher_planilha(dados_planilha)
-                
-                # Excluir arquivo PDF
                 excluir_arquivo(arquivo_pdf)
-                
-                # Voltar para a tela de busca
                 botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
                 try_click(botao_voltar)
 
                 return {
-                    "numero": numero_contrato, 
-                    "status": "Sucesso", 
+                    "numero": numero_contrato,
+                    "status": "Sucesso",
                     "arquivo": arquivo_pdf
                 }
 
         except Exception as e:
-            logging.error(f"Erro ao processar contrato {numero_contrato}: {e}")
-
-            # Excluir arquivo PDF
             excluir_arquivo(arquivo_pdf)
-            
-            # Voltar para a tela de busca
-            botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
-            try_click(botao_voltar)            
+            try:
+                botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
+                try_click(botao_voltar)
+            except:
+                pass
 
             return {
-                "numero": numero_contrato, 
-                "status": "Falha", 
-                "arquivo": None
+                "numero": numero_contrato,
+                "status": "Falha",
+                "arquivo": None,
+                "erro": str(e)
             }
-            
+
     def executar(self, limite=None, modo_teste=False):
         """
         Executa o processamento completo de contratos.
-        
+
         Args:
             limite: Número máximo de contratos a processar
             modo_teste: Se True, processa apenas o primeiro contrato
         """
         try:
-
             # Ler contratos pendentes
             contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
 
             if not contratos or contratos is None:
                 print("Nenhum contrato pendente encontrado para processamento")
                 return
-            
+
+            try:
+                with open(CONFIG['EXCEL_PLUXXE'], 'r') as file:
+                    print("Planilha pluxxe Ok!")
+
+            except FileNotFoundError:
+                print("Arquivo pluxxe não carregado, por favor carregar arquivo para pasta do robo!")
+                return
+
             # Iniciar navegador
             if not self.iniciar_navegador():
                 return
-                
+
             time.sleep(2)
-                
+
             # Realizar login
             if not self.login():
                 return
 
             total_contratos = len(contratos)
             print(f"\n=== Processamento de {total_contratos} contratos iniciado ===")
-            
+
             # Marca o tempo de início da execução total
             self.tempo_inicio_total = time.time()
-            
+
             # Atualizar UI inicial
             if self.ui:
                 self.ui.root.after(0, self.ui.atualizar_progresso, 0, total_contratos)
-            
+
             # Processar cada contrato
             resultados = []
             for idx, numero_contrato in enumerate(contratos):
                 # Marca tempo inicial do contrato
                 tempo_inicio_contrato = time.time()
-                
+
                 # Mostrar estimativa se já tiver processado pelo menos um contrato
                 if self.tempos_processamento and idx < total_contratos - 1:
                     tempo_medio = sum(self.tempos_processamento) / len(self.tempos_processamento)
@@ -249,25 +228,25 @@ class ContraktorBot:
                     # Atualizar UI com tempo estimado
                     if self.ui:
                         self.ui.root.after(0, self.ui.atualizar_tempo_estimado, tempo_restante)
-                
+
                 resultado = self.processar_contrato(numero_contrato, idx + 1, total_contratos)
-                resultados.append(resultado)
+                resultados.append(resultado)  # Salva todos os resultados, incluindo falhas
 
                 # Calcula o tempo que levou para processar este contrato
                 tempo_contrato = time.time() - tempo_inicio_contrato
                 self.tempos_processamento.append(tempo_contrato)
-                
+
                 # Pequena pausa entre contratos
                 time.sleep(3)
-                
+
             # Calcula o tempo total da execução
             tempo_total = time.time() - self.tempo_inicio_total
             tempo_total_formatado = str(timedelta(seconds=int(tempo_total)))
-            
+
             # Resumo final
             sucesso = sum(1 for r in resultados if r['status'] == "Sucesso")
 
-            # 
+            # Atualiza a planilha com os resultados
             ExcelProcessor.atualizar_esteira(resultados, CONFIG['EXCEL_CONTRATOS'])
 
             contratos_erro = []
@@ -281,14 +260,15 @@ class ContraktorBot:
             print(f"Falhas: {len(contratos_erro)}")
             print(f"Contratos com falha: {contratos_erro}")
             print(f"Tempo total de execução: {tempo_total_formatado}")
-            
+
             if self.tempos_processamento:
                 tempo_medio = sum(self.tempos_processamento)/len(self.tempos_processamento)
                 print(f"Tempo médio por contrato: {str(timedelta(seconds=int(tempo_medio)))}")
-            
+
         except Exception as e:
             print(f"Erro durante a execução: {e}")
         finally:
             if self.driver:
                 self.driver.quit()
                 print("Navegador fechado")
+

@@ -1,7 +1,6 @@
 import PyPDF2
-import logging
 import re
-from utils import abreviar_nome, estado_para_uf, split_numero
+from utils import *
 
 class PDFProcessor:
     """Classe para processar arquivos PDF de contratos."""
@@ -47,7 +46,6 @@ class PDFProcessor:
                         else:
                             info[campo] = valor
                             
-
                 return {
                     "texto_completo": texto_completo, 
                     "dados_extraidos": info, 
@@ -55,7 +53,7 @@ class PDFProcessor:
                 }
 
         except Exception as e:
-            logging.error(f"Erro ao processar o PDF: {e}")
+            print(f"Erro ao processar o PDF: {e}")
             return {
                 "texto_completo": "", 
                 "dados_extraidos": {}, 

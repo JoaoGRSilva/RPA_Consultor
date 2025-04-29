@@ -1,4 +1,4 @@
-import logging
+
 import time
 import glob
 import os, re
@@ -8,18 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import ElementClickInterceptedException
 from config.config import CONFIG
-
-def setup_logging():
-    """Configura o sistema de logging."""
-    logging.basicConfig(
-        filename=CONFIG['LOG_FILE'],
-        level=logging.DEBUG,
-        format='%(asctime)s - %(levelname)s - %(message)s'
-    )
-    # Adicionar também log no console
-    console = logging.StreamHandler()
-    console.setLevel(logging.INFO)
-    logging.getLogger('').addHandler(console)
     
 def abreviar_nome(nome_completo):
     """
