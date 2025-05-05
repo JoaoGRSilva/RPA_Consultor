@@ -5,48 +5,46 @@ import shutil
 import subprocess
 import PyInstaller.__main__
 
-def clean_build_directories():
-    """Limpa os diretórios de build anteriores"""
-    dirs_to_clean = ['build', 'dist']
-    for dir_name in dirs_to_clean:
-        if os.path.exists(dir_name):
-            shutil.rmtree(dir_name)
-    spec_files = [f for f in os.listdir('.') if f.endswith('.spec')]
-    for file in spec_files:
-        os.remove(file)
-
 def build_executable():
     """Gera o executável usando PyInstaller"""
     print("Construindo executável...")
-    
+
+    # Caminho do .env formatado corretamente para --add-data
+    env_data_arg = '.env;.'
+
     # Opções do PyInstaller
     options = [
         'main.py',                      # Script principal
         '--name=ContraktorBot',         # Nome do executável
         '--onefile',                    # Arquivo único
         '--windowed',                   # Sem janela de console
+        f'--add-data={env_data_arg}',   # Incluir .env no executável
         '--hidden-import=selenium',     # Importações ocultas
         '--hidden-import=openpyxl',
         '--clean',                      # Limpar cache
     ]
-    
+
     # Executar PyInstaller
     PyInstaller.__main__.run(options)
-    
+
     print("Copiando arquivos adicionais...")
+
     # Copiar arquivos adicionais para o diretório dist
     additional_files = [
-        '.env',                         # Configurações de ambiente
-        'README.md',                    # Instruções
-        # Adicione outros arquivos necessários aqui
+        'README.md',  # Adicione outros arquivos se necessário
     ]
-    
+
+    dist_dir = os.path.join('dist')
+    exe_dir = os.path.join(dist_dir, 'ContraktorBot')
+
+    os.makedirs(exe_dir, exist_ok=True)
+
     for file in additional_files:
         if os.path.exists(file):
-            shutil.copy2(file, os.path.join('dist', 'ContraktorBot'))
-    
+            shutil.copy2(file, os.path.join(exe_dir))
+
     print("Build concluído com sucesso!")
-    print("O executável está disponível em: dist/ContraktorBot/ContraktorBot.exe")
+    print("O executável está disponível em: dist/ContraktorBot.exe")
 
 def install_requirements():
     """Instala as dependências necessárias"""
@@ -57,9 +55,6 @@ def install_requirements():
 if __name__ == "__main__":
     # Instalar dependências
     install_requirements()
-    
-    # Limpar diretórios de build anteriores
-    clean_build_directories()
-    
+
     # Construir o executável
     build_executable()

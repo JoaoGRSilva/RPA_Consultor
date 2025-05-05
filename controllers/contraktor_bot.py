@@ -12,6 +12,8 @@ from models.pdf_processor import PDFProcessor
 from models.excel_processor import ExcelProcessor
 from utils.helpers import *
 
+from credentials import senha_contracktor, email_contracktor
+
 class ContraktorBot:
     """Classe principal para automação do Contraktor."""
 
@@ -45,8 +47,8 @@ class ContraktorBot:
             user_input = aguardar_elemento(self.driver, By.ID, Selectors.LOGIN_EMAIL)
             pwd_input = aguardar_elemento(self.driver, By.ID, Selectors.LOGIN_PASSWORD)
 
-            user_input.send_keys(CONFIG['EMAIL'])
-            pwd_input.send_keys(CONFIG['PASSWORD'])
+            user_input.send_keys(email_contracktor)
+            pwd_input.send_keys(senha_contracktor)
 
             botao_login = aguardar_elemento(self.driver, By.XPATH, Selectors.LOGIN_BUTTON, tipo_espera='clicavel')
             try_click(botao_login)
@@ -131,7 +133,7 @@ class ContraktorBot:
 
             if dados_planilha['Nome completo'] == "":
                 excluir_arquivo(arquivo_pdf)
-                print(f"Erro: Nome completo vazio no PDF do contrato {numero_contrato}")
+                print(f"Erro: PDF fora do padrão: {numero_contrato}")
                 botao_voltar = aguardar_elemento(self.driver, By.XPATH, Selectors.RETURN_BUTTON, tipo_espera='clicavel')
                 try_click(botao_voltar)
 
@@ -139,7 +141,7 @@ class ContraktorBot:
                     "numero": numero_contrato,
                     "status": "Falha",
                     "arquivo": None,
-                    "erro": "Nome completo vazio no PDF"
+                    "erro": "Erro: PDF fora do padrão:"
                 }
 
             # Preencher planilha
@@ -189,6 +191,7 @@ class ContraktorBot:
             try:
                 with open(CONFIG['EXCEL_PLUXXE'], 'r') as file:
                     print("Planilha pluxxe Ok!")
+                    ExcelProcessor.limpar_planilha()
 
             except FileNotFoundError:
                 print("Arquivo pluxxe não carregado, por favor carregar arquivo para pasta do robo!")
@@ -260,6 +263,8 @@ class ContraktorBot:
             print(f"Falhas: {len(contratos_erro)}")
             print(f"Contratos com falha: {contratos_erro}")
             print(f"Tempo total de execução: {tempo_total_formatado}")
+
+            ExcelProcessor.renomear_saida()
 
             if self.tempos_processamento:
                 tempo_medio = sum(self.tempos_processamento)/len(self.tempos_processamento)

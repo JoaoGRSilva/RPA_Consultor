@@ -1,7 +1,9 @@
 from openpyxl import load_workbook
 import pandas as pd
+from datetime import date
 import os
 from config import CONFIG
+
 
 class ExcelProcessor:
     @staticmethod
@@ -13,7 +15,6 @@ class ExcelProcessor:
 
             contratos_vigentes = df[
                 (df['STATUS'] == 'Vigente') &
-                (df['Status Omni'] == 'Demandado Para Logística') &
                 (df['CADASTRADO PLUXXE?'] == 'NÃO') &
                 (df['Processado RPA'] == 'NÃO')
             ]
@@ -110,3 +111,37 @@ class ExcelProcessor:
         except Exception as e:
             print(f"Erro ao preencher a planilha: {e}")
             return False
+    
+    
+    @staticmethod
+    def limpar_planilha():
+        try:
+            pluxxe_path = CONFIG['EXCEL_PLUXXE']
+            wb = load_workbook(pluxxe_path)
+            ws = wb.active
+
+            for linha in range(ws.max_row, 7, -1): 
+                for celula in ws[linha]:
+                    celula.value = None
+
+            wb.save(pluxxe_path)
+            print("Planilha limpa com sucesso!")
+
+        except Exception as e:
+            print(f"Erro ao limpar planilha: {e}")
+
+    @staticmethod
+    def renomear_saida():
+        hoje = date.today()
+        try:
+            pluxxe_path = CONFIG['EXCEL_PLUXXE']
+            dia_formatado = hoje.strftime("%d%m%y")
+            nome_arquivo = f"PLANSIP4C_3230687_{dia_formatado}.xlsx"
+            novo_caminho = os.path.join(os.path.dirname(pluxxe_path), nome_arquivo)
+            os.rename(pluxxe_path, novo_caminho)
+            print(f"Planilha renomeada para: {nome_arquivo}")
+        except Exception as e:
+            print(f"Erro ao renomear a planilha: {e}")
+
+
+

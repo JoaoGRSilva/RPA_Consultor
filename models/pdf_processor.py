@@ -71,46 +71,65 @@ class PDFProcessor:
         Returns:
             dict: Dados formatados para planilha na ordem correta
         """
-        # Inicializa o dicionário com campos vazios na ordem correta
-        dados_planilha = {
-            'cod pluxe': "3230687",                    # Código Cliente Pluxee
-            'sit ben': "Ativo",                        # Situação do beneficiário
-            'Nome completo': "",                       # Nome completo
-            'CPF/MF': "",                              # CPF
-            'Data de Nascimento': "",                  # Data de nascimento
-            'nome gravacao': "",                       # Nome para gravação no cartão
-            'pular1': None,                            # Pula 1
-            'pular2': None,                            # Pula 2
-            'pular3': None,                            # Pula 3
-            'pular4': None,                            # Pula 4
-            'tipo': "023 - Pedido de 1ªVia de Cartão Sem Crédito",  # Tipo do pedido
-            'produto': "603903 - Carteira Gift",       # Produto
-            'pular5': None,                            # Pula 5
-            'pular6': None,                            # Pula 6
-            'pular7': None,                            # Pula 7
-            'local': "MATRIZ",                         # Local de entrega
-            'CEP': "",                                 # CEP
-            'Logradouro': "",                          # Endereço
-            'Número': "",                              # Número
-            'Complemento': "",                         # Complemento
-            'pular9': None,                            # Pula 9
-            'Bairro': "",                              # Bairro
-            'Cidade': "",                              # Cidade
-            'Estado': "",                              # UF
-            'Responsável pelo recebimento': "",        # Responsável pelo recebimento
-            'DDD': None,                               # DDD do telefone
-            'Celular': None,                           # Número do telefone
-            '(e-mail pessoal ou pessoal corporativo)': ""  # Email do beneficiário
+        # Mapeamento de abreviações
+        abreviacoes_logradouro = {
+            "Rua": "R.",
+            "Avenida": "Av.",
+            "Travessa": "Tv.",
+            "Alameda": "Al.",
+            "Praça": "Pç.",
+            "Rodovia": "Rod.",
+            "Estrada": "Est.",
+            "Viela": "Vl.",
+            "Ladeira": "Ld.",
+            "Largo": "Lg.",
+            "Beco": "Bco.",
+            "Vila": "Vl.",
+            "Conjunto": "Cj.",
+            "Quadra": "Qd.",
+            "Setor": "St.",
+            "Loteamento": "Lt.",
+            "Caminho": "Cam.",
+            "Servidão": "Serv."
         }
-        
-        # Atualiza com os dados extraídos do PDF
+
+        dados_planilha = {
+            'cod pluxe': "3230687",
+            'sit ben': "Ativo",
+            'Nome completo': "",
+            'CPF/MF': "",
+            'Data de Nascimento': "",
+            'nome gravacao': "",
+            'pular1': None,
+            'pular2': None,
+            'pular3': None,
+            'pular4': None,
+            'tipo': "023 - Pedido de 1ªVia de Cartão Sem Crédito",
+            'produto': "603903 - Carteira Gift",
+            'pular5': None,
+            'pular6': None,
+            'pular7': None,
+            'local': "MATRIZ",
+            'CEP': "",
+            'Logradouro': "",
+            'Número': "",
+            'Complemento': "",
+            'pular9': None,
+            'Bairro': "",
+            'Cidade': "",
+            'Estado': "",
+            'Responsável pelo recebimento': "",
+            'DDD': None,
+            'Celular': None,
+            '(e-mail pessoal ou pessoal corporativo)': ""
+        }
+
         if dados_pdf and dados_pdf['dados_extraidos']:
             dados_planilha.update({
                 k: v for k, v in dados_pdf['dados_extraidos'].items() if k in dados_planilha
             })
             dados_planilha['Estado'] = estado_para_uf(dados_planilha['Estado'])
-            
-            # Processar nome para abreviação
+
             if 'Nome completo' in dados_planilha and dados_planilha['Nome completo']:
                 nome = dados_planilha['Nome completo']
                 nome_abreviado = abreviar_nome(nome)
@@ -122,16 +141,27 @@ class PDFProcessor:
                 ddd, numero = split_numero(telefone)
                 dados_planilha['DDD'] = ddd
                 dados_planilha['Celular'] = numero
-            
 
-            #Remover o - do cep
             if 'CEP' in dados_planilha and dados_planilha['CEP']:
-                cep = dados_planilha['CEP']
-                cep_sem_hifen = cep.replace("-","")
-                dados_planilha['CEP'] = cep_sem_hifen
-                
-            # Verifica se Complemento está vazio e o substitui por None (pula 8)
+                dados_planilha['CEP'] = dados_planilha['CEP'].replace("-", "")
+
             if 'Complemento' in dados_planilha and not dados_planilha['Complemento']:
                 dados_planilha['Complemento'] = None
-        
+
+            logradouro = dados_planilha.get('Logradouro', '')
+            logradouro_strip = logradouro.strip()
+
+            for tipo_extenso, abrev in abreviacoes_logradouro.items():
+                if logradouro_strip.lower().startswith(tipo_extenso.lower() + " "):
+                    restante = logradouro_strip[len(tipo_extenso):].strip()
+                    restante_formatado = restante.title()
+                    dados_planilha['Logradouro'] = f"{abrev} {restante_formatado}"
+                    break
+
+
+            # Limpa espaços indevidos nos demais campos
+            for chave, valor in dados_planilha.items():
+                if chave not in ['Nome completo', 'nome gravacao', 'Responsável pelo recebimento', 'tipo', 'produto', 'Bairro', 'Cidade', 'Logradouro'] and isinstance(valor, str):
+                    dados_planilha[chave] = ''.join(valor.split())
+
         return dados_planilha

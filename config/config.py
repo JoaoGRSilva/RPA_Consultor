@@ -14,7 +14,7 @@ rpa_dir = os.path.join(esteira_dir, '#RPA')
 
 # Encontrar qualquer arquivo .xlsx no diretório do executável
 xlsx_files = glob.glob(os.path.join(exec_dir, '*.xlsx'))
-excel_pluxxe = xlsx_files[0] if xlsx_files else 'pluxxe.xlsx'  
+excel_pluxxe = xlsx_files[0] if xlsx_files else 'PLANSIP4C_*.xlsx'  
 
 CONFIG = {
     'URL_LOGIN': 'https://app.contraktor.com.br/contratos',
