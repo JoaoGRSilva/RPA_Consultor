@@ -19,7 +19,7 @@ class TextRedirector:
 class ContraktorBotUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Contraktor Bot")
+        self.root.title("Bot Consultor")
         self.root.geometry("800x600")
         self.root.resizable(True, True)
         

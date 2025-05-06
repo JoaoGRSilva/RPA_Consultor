@@ -9,16 +9,13 @@ def build_executable():
     """Gera o executável usando PyInstaller"""
     print("Construindo executável...")
 
-    # Caminho do .env formatado corretamente para --add-data
-    env_data_arg = '.env;.'
 
     # Opções do PyInstaller
     options = [
         'main.py',                      # Script principal
-        '--name=ContraktorBot',         # Nome do executável
+        '--name=Bot Consultor',         # Nome do executável
         '--onefile',                    # Arquivo único
         '--windowed',                   # Sem janela de console
-        f'--add-data={env_data_arg}',   # Incluir .env no executável
         '--hidden-import=selenium',     # Importações ocultas
         '--hidden-import=openpyxl',
         '--clean',                      # Limpar cache
