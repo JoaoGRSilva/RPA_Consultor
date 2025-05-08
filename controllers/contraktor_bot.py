@@ -1,5 +1,4 @@
 import time
-from datetime import timedelta
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,8 +9,10 @@ from config.config import CONFIG
 from config.selectors import Selectors
 from models.pdf_processor import PDFProcessor
 from models.excel_processor import ExcelProcessor
+from models.email_sender import EmailSender
 from utils.helpers import *
-import warnings
+import warnings, shutil
+from datetime import datetime,timedelta
 
 from credentials import senha_contracktor, email_contracktor
 
@@ -21,7 +22,8 @@ warnings.filterwarnings("ignore")
 class ContraktorBot:
     """Classe principal para automação do Contraktor."""
 
-    def __init__(self, ui=None):
+    def __init__(self, ui=None, excecao_var=None, log_queue=None):
+        self.excecao_var = excecao_var
         self.driver = None
         self.ui = ui
         self.tempos_processamento = []
@@ -181,103 +183,99 @@ class ContraktorBot:
         Executa o processamento completo de contratos.
 
         Args:
-            limite: Número máximo de contratos a processar
-            modo_teste: Se True, processa apenas o primeiro contrato
+            limite (int): Número máximo de contratos a processar.
+            modo_teste (bool): Se True, processa apenas o primeiro contrato.
         """
+
         try:
-            # Ler contratos pendentes
+            excecao = self.excecao_var.get()
+            hoje = datetime.today().weekday()
+
+            if hoje != 0 and not excecao:
+                pass
+            else:
+                print("🔹 Iniciando processo de compilado...")
+                compilado = ExcelProcessor.compilar_arquivos()
+                print("✅ Compilação concluída.")
+                ExcelProcessor.compilar_planilhas(compilado)
+                print("📄 Planilha de compilamento gerada.")
+
+            if modo_teste:
+                print("⚠️ Modo de teste ativado. Encerrando após compilação.")
+                return
+
+            print("🔍 Lendo contratos pendentes...")
             contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
 
-            if not contratos or contratos is None:
-                print("Nenhum contrato pendente encontrado para processamento")
+            if not contratos:
+                print("⚠️ Nenhum contrato pendente encontrado.")
                 return
 
-            try:
-                with open(CONFIG['EXCEL_PLUXXE'], 'r') as file:
-                    print("Planilha pluxxe Ok!")
-                    ExcelProcessor.limpar_planilha()
+            print("📁 Copiando modelo da planilha...")
+            shutil.copy(CONFIG['EXCEL_PLUXXE'], 'planilha.xlsx')
 
-            except FileNotFoundError:
-                print("Arquivo pluxxe não carregado, por favor carregar arquivo para pasta do robo!")
+            if not os.path.exists('planilha.xlsx'):
+                print("❌ Planilha pluxxe não encontrada!")
                 return
+            else:
+                print("✅ Planilha pluxxe carregada.")
 
-            # Iniciar navegador
             if not self.iniciar_navegador():
                 return
-
             time.sleep(2)
 
-            # Realizar login
             if not self.login():
                 return
 
             total_contratos = len(contratos)
-            print(f"\n=== Processamento de {total_contratos} contratos iniciado ===")
-
-            # Marca o tempo de início da execução total
+            print(f"\n🚀 Iniciando processamento de {total_contratos} contratos...\n")
             self.tempo_inicio_total = time.time()
 
-            # Atualizar UI inicial
             if self.ui:
                 self.ui.root.after(0, self.ui.atualizar_progresso, 0, total_contratos)
 
-            # Processar cada contrato
             resultados = []
+
             for idx, numero_contrato in enumerate(contratos):
-                # Marca tempo inicial do contrato
                 tempo_inicio_contrato = time.time()
 
-                # Mostrar estimativa se já tiver processado pelo menos um contrato
                 if self.tempos_processamento and idx < total_contratos - 1:
                     tempo_medio = sum(self.tempos_processamento) / len(self.tempos_processamento)
                     tempo_restante = tempo_medio * (total_contratos - idx)
-
-                    # Atualizar UI com tempo estimado
                     if self.ui:
                         self.ui.root.after(0, self.ui.atualizar_tempo_estimado, tempo_restante)
 
                 resultado = self.processar_contrato(numero_contrato, idx + 1, total_contratos)
-                resultados.append(resultado)  # Salva todos os resultados, incluindo falhas
+                resultados.append(resultado)
 
-                # Calcula o tempo que levou para processar este contrato
                 tempo_contrato = time.time() - tempo_inicio_contrato
                 self.tempos_processamento.append(tempo_contrato)
 
-                # Pequena pausa entre contratos
                 time.sleep(3)
 
-            # Calcula o tempo total da execução
             tempo_total = time.time() - self.tempo_inicio_total
             tempo_total_formatado = str(timedelta(seconds=int(tempo_total)))
 
-            # Resumo final
             sucesso = sum(1 for r in resultados if r['status'] == "Sucesso")
+            falhas = [r['numero'] for r in resultados if r['status'] == "Falha"]
 
-            # Atualiza a planilha com os resultados
-            ExcelProcessor.atualizar_esteira(resultados, CONFIG['EXCEL_CONTRATOS'])
-
-            contratos_erro = []
-            for r in resultados:
-                if r['status'] == "Falha":
-                    contratos_erro.append(r['numero'])
-
-            print(f"\n=== Resumo do processamento ===")
-            print(f"Total de contratos processados: {len(resultados)}")
-            print(f"Sucessos: {sucesso}")
-            print(f"Falhas: {len(contratos_erro)}")
-            print(f"Contratos com falha: {contratos_erro}")
-            print(f"Tempo total de execução: {tempo_total_formatado}")
+            print("\n📊 === RESUMO DO PROCESSAMENTO ===")
+            print(f"Total processado: {len(resultados)}")
+            print(f"✅ Sucessos: {sucesso}")
+            print(f"❌ Falhas: {len(falhas)}")
+            print(f"Contratos com falha: {falhas}")
+            print(f"⏱️ Tempo total: {tempo_total_formatado}")
 
             ExcelProcessor.renomear_saida()
 
             if self.tempos_processamento:
-                tempo_medio = sum(self.tempos_processamento)/len(self.tempos_processamento)
-                print(f"Tempo médio por contrato: {str(timedelta(seconds=int(tempo_medio)))}")
+                tempo_medio = sum(self.tempos_processamento) / len(self.tempos_processamento)
+                print(f"⏱️ Tempo médio por contrato: {str(timedelta(seconds=int(tempo_medio)))}")
 
         except Exception as e:
-            print(f"Erro durante a execução: {e}")
+            print(f"❌ Erro durante a execução: {e}")
+
         finally:
             if self.driver:
                 self.driver.quit()
-                print("Navegador fechado")
-
+                print("🧹 Navegador fechado.")

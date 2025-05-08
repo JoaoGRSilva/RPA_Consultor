@@ -3,6 +3,7 @@ from tkinter import ttk, scrolledtext, messagebox
 import queue
 import sys
 from datetime import timedelta
+from tkinter import BooleanVar
 import threading
 
 class TextRedirector:
@@ -49,6 +50,8 @@ class ContraktorBotUI:
         self.style.configure("Pesquisar.TButton", background=self.COR_BOTAO_PESQUISAR, foreground="black")
         
         # Variáveis
+        self.excecao_var = BooleanVar()
+        self.excecao_var = tk.BooleanVar(value=False)
         self.limite_var = tk.StringVar(value="")
         self.is_running = False
         self.log_queue = queue.Queue()
@@ -76,14 +79,17 @@ class ContraktorBotUI:
         limite_entry = tk.Entry(config_frame, width=20, textvariable=self.limite_var, bg=self.COR_ENTRADA)
         limite_entry.grid(column=0, row=1, sticky=tk.W, padx=5, pady=5)
         
-        # Botões
-        botoes_frame = tk.Frame(config_frame, bg=self.COR_FUNDO)
-        botoes_frame.grid(column=0, row=2, sticky=tk.W, padx=5, pady=5)
-        
-        self.botao_iniciar = tk.Button(botoes_frame, text="Iniciar", bg=self.COR_BOTAO_PESQUISAR, fg="black",
-                                       command=self.iniciar_processamento, width=15)
+        # Botões + Check de exceção
+        controle_frame = tk.Frame(config_frame, bg=self.COR_FUNDO)
+        controle_frame.grid(column=0, row=2, sticky=tk.W, padx=5, pady=5)
+
+        self.botao_iniciar = tk.Button(controle_frame, text="Iniciar", bg=self.COR_BOTAO_PESQUISAR, fg="black",
+                                    command=self.iniciar_processamento, width=15)
         self.botao_iniciar.pack(side=tk.LEFT, padx=5)
-        
+
+        self.excecao_check = tk.Checkbutton(controle_frame, text="E-mail em exceção", variable=self.excecao_var,
+                                            bg=self.COR_FUNDO, fg=self.COR_TEXTO, selectcolor=self.COR_FUNDO)
+        self.excecao_check.pack(side=tk.LEFT, padx=10)
         
         # Frame de progresso
         progress_frame = tk.LabelFrame(main_frame, text="Andamento", bg=self.COR_FUNDO, fg=self.COR_TEXTO, padx=10, pady=10)
@@ -136,7 +142,6 @@ class ContraktorBotUI:
             self.total_field.delete(0, tk.END)
             self.total_field.insert(0, f"{atual}/{total}")
     
-    
     def atualizar_tempo_estimado(self, segundos_restantes):
         """Atualiza o tempo estimado restante"""
         if segundos_restantes > 0:
@@ -180,17 +185,16 @@ class ContraktorBotUI:
     def executar_bot(self, limite):
         """Executa o bot em uma thread separada"""
         try:
-
             if self.criar_bot is None:
                 self.log_queue.put("Erro: A função criar_bot não foi definida\n")
                 return
+
             # Redirecionar stdout e stderr para o widget de log
             original_stdout = sys.stdout
             original_stderr = sys.stderr
             
             sys.stdout = TextRedirector(self.log_text, self.log_queue)
             sys.stderr = TextRedirector(self.log_text, self.log_queue)
-            
             
             self.bot = self.criar_bot()
 

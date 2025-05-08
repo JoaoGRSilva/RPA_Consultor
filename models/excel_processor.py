@@ -1,8 +1,11 @@
 from openpyxl import load_workbook, Workbook
 import pandas as pd
 from datetime import date, datetime, timedelta
-import os, re
+import os, re, shutil
 from config import CONFIG
+from openpyxl.drawing.image import Image
+from openpyxl.utils import get_column_letter
+from copy import copy
 
 
 class ExcelProcessor:
@@ -93,7 +96,7 @@ class ExcelProcessor:
     @staticmethod
     def preencher_planilha(dados, linha_inicial=7):
         try:
-            pluxxe_path = CONFIG['EXCEL_PLUXXE']
+            pluxxe_path = 'planilha.xlsx'
             wb = load_workbook(pluxxe_path)
             sheet = wb['Dados dos Beneficiários']
 
@@ -116,7 +119,8 @@ class ExcelProcessor:
     @staticmethod
     def limpar_planilha():
         try:
-            pluxxe_path = CONFIG['EXCEL_PLUXXE']
+            shutil.copy(CONFIG['EXCEL_PLUXXE'], 'planilha.xlsx')
+            pluxxe_path = 'planilha.xlsx'
             wb = load_workbook(pluxxe_path)
             ws = wb.active
 
@@ -134,7 +138,7 @@ class ExcelProcessor:
     def renomear_saida():
         hoje = date.today()
         try:
-            pluxxe_path = CONFIG['EXCEL_PLUXXE']
+            pluxxe_path = 'planilha.xlsx'
             dia_formatado = hoje.strftime("%d%m%y")
             nome_arquivo = f"PLANSIP4C_3230687_{dia_formatado}.xlsx"
             novo_caminho = os.path.join(os.path.dirname(pluxxe_path), nome_arquivo)
@@ -142,6 +146,13 @@ class ExcelProcessor:
             print(f"Planilha renomeada para: {nome_arquivo}")
         except Exception as e:
             print(f"Erro ao renomear a planilha: {e}")
+
+        wb = load_workbook(nome_arquivo)
+        ws = wb.active
+        img = Image("logo_pluxxe.png")
+        ws.add_image(img, "A1")
+
+        wb.save(nome_arquivo)
 
 
     @staticmethod
@@ -173,11 +184,13 @@ class ExcelProcessor:
             if match and match.group(1) in datas:
                 arquivos_processados.append(arquivo)
         
+        print(arquivos_processados)
+
         return arquivos_processados
 
 
     @staticmethod
-    def compilar_planilhas(arquivos, linha_inicio = 8):
+    def compilar_planilhas(arquivos, linha_inicio=8):
         wb_compilado = Workbook()
         ws_destino = wb_compilado.active
         ws_destino.title = 'Dados dos Beneficiários'
@@ -185,23 +198,84 @@ class ExcelProcessor:
         primeira = True
 
         for arquivo in arquivos:
-            wb = load_workbook(arquivo, data_only=True)
+            # Adicionar o caminho completo ao nome do arquivo
+            caminho_completo = os.path.join(CONFIG['PLUXXE_FOLDER'], arquivo)
+            
+            wb = load_workbook(caminho_completo, data_only=True)
             ws = wb.active
 
             if primeira:
+                # Copiar configurações da planilha
+                ws_destino.page_setup = ws.page_setup
+                ws_destino.page_margins = ws.page_margins
+                ws_destino.sheet_properties = ws.sheet_properties
+                
+                # Copiar larguras das colunas
+                for i, column in enumerate(ws.columns):
+                    col_letter = get_column_letter(i + 1)
+                    if ws.column_dimensions[col_letter].width:
+                        ws_destino.column_dimensions[col_letter].width = ws.column_dimensions[col_letter].width
+                
+                # Copiar cabeçalhos com formatação
                 for i in range(1, linha_inicio):
+                    # Copiar altura da linha
+                    if ws.row_dimensions[i].height:
+                        ws_destino.row_dimensions[i].height = ws.row_dimensions[i].height
+                    
                     for j, cell in enumerate(ws[i], start=1):
-                        ws_destino.cell(row=i, column=j, value=cell.value)
+                        new_cell = ws_destino.cell(row=i, column=j, value=cell.value)
+                        
+                        # Copiar formatação
+                        if cell.has_style:
+                            new_cell.font = copy(cell.font)
+                            new_cell.border = copy(cell.border)
+                            new_cell.fill = copy(cell.fill)
+                            new_cell.number_format = cell.number_format
+                            new_cell.alignment = copy(cell.alignment)
+                        
+                        # Copiar mesclagens
+                        if cell.coordinate in ws.merged_cells:
+                            for merged_range in ws.merged_cells.ranges:
+                                if cell.coordinate in merged_range:
+                                    ws_destino.merge_cells(str(merged_range))
+                                    break
+                
                 linha_atual_destino = linha_inicio
                 primeira = False
             else:
                 linha_atual_destino = ws_destino.max_row + 1
 
+            # Copiar dados com formatação
             for i in range(linha_inicio, ws.max_row + 1):
                 if all(cell.value is None for cell in ws[i]):
                     continue
+                    
+                # Copiar altura da linha
+                if ws.row_dimensions[i].height:
+                    ws_destino.row_dimensions[linha_atual_destino].height = ws.row_dimensions[i].height
+                    
                 for j, cell in enumerate(ws[i], start=1):
-                    ws_destino.cell(row=linha_atual_destino, column=j, value=cell.value)
+                    new_cell = ws_destino.cell(row=linha_atual_destino, column=j, value=cell.value)
+                    
+                    # Copiar formatação
+                    if cell.has_style:
+                        new_cell.font = copy(cell.font)
+                        new_cell.border = copy(cell.border)
+                        new_cell.fill = copy(cell.fill)
+                        new_cell.number_format = cell.number_format
+                        new_cell.alignment = copy(cell.alignment)
+                    
+                    # Copiar mesclagens
+                    if cell.coordinate in ws.merged_cells:
+                        for merged_range in ws.merged_cells.ranges:
+                            if cell.coordinate in merged_range:
+                                # Ajustar a referência da mesclagem à nova posição
+                                min_col, min_row, max_col, max_row = merged_range.bounds
+                                row_offset = linha_atual_destino - i
+                                new_range = get_column_letter(min_col) + str(min_row + row_offset) + ":" + get_column_letter(max_col) + str(max_row + row_offset)
+                                ws_destino.merge_cells(new_range)
+                                break
+                    
                 linha_atual_destino += 1
 
         hoje = date.today()

@@ -1,5 +1,5 @@
 import win32com.client as win32
-import os
+import pythoncom
 from config import CONFIG
 
 class EmailSender:
@@ -7,18 +7,25 @@ class EmailSender:
 
     @staticmethod
     def envio_email():
-
+        """
         attachment = mail.Attachments.Add(CONFIG['COMPILADO_FOLDER'])
         if not os.path.exists(attachment):
-            raise FileNotFoundError(f"Arquivo não encontrado: {attachment}")
+            raise FileNotFoundError(f"Arquivo não encontrado: {attachment}")    
+        """
         
         try:
+            pythoncom.CoInitialize()
+            
             # Abertura do Outlook
             outlook = win32.Dispatch("Outlook.Application")
+            namespace = outlook.GetNamespace("MAPI")
+    
             mail = outlook.CreateItem(0)
-            
+            if mail is None:
+                raise Exception("Não foi possível criar o item de email")
+                
             # Configurar o destinatário
-            mail.To = 'talita.souza@afinz.com.br'
+            mail.To = 'carla.romao@afinz.com.br'
             
             # Configurar o assunto
             mail.Subject = 'Teste'
@@ -26,10 +33,15 @@ class EmailSender:
             # Adicionar algum corpo ao email 
             mail.Body = "Este é um email de teste."
             
-            # Adicionar o anexo
-            mail.Attachments.Add(attachment)
+            # mail.Attachments.Add(attachment)
             
-            # Enviar o email
+            mail.Save()
             mail.Send()
+            
+            print("Email enviado com sucesso!")
+            
         except Exception as e:
             print(f"Houve um erro para enviar: {e}")
+            
+        finally:
+            pythoncom.CoUninitialize()

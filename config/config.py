@@ -10,11 +10,9 @@ exec_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
 home_dir = os.path.expanduser('~')
 afinz_dir = os.path.join(home_dir, 'SOROCRED – CREDITO, FINANCIAMENTO E INVESTIMENTO S')
 esteira_dir = os.path.join(afinz_dir, 'Esteira de Integração - Documentos')
+modelo_dir = os.path.join(esteira_dir, 'MODELO')
 rpa_dir = os.path.join(esteira_dir, '#RPA')
 
-# Encontrar qualquer arquivo .xlsx no diretório do executável
-xlsx_files = glob.glob(os.path.join(exec_dir, '*.xlsx'))
-excel_pluxxe = xlsx_files[0] if xlsx_files else 'PLANSIP4C_*.xlsx'  
 
 CONFIG = {
     'URL_LOGIN': 'https://app.contraktor.com.br/contratos',
@@ -22,10 +20,10 @@ CONFIG = {
     'PASSWORD': os.getenv('CONTRAKTOR_PASSWORD', 'default_password'),
     'DOWNLOAD_FOLDER': os.path.join(home_dir, 'Downloads'),
     'EXCEL_ESTEIRA': os.path.join(esteira_dir, 'ESTEIRA.xlsx'),
-    'EXCEL_PLUXXE': excel_pluxxe,
+    'EXCEL_PLUXXE': os.path.join(modelo_dir, 'PLANSIP4C_MODELO.xlsx'),
     'EXCEL_CONTRATOS': os.path.join(rpa_dir, '#RPA.xlsx'),
     'PLUXXE_FOLDER': os.path.join(esteira_dir, 'PLUXXE'),
-    'COMPILADO_FOLDER': os.path.join(esteira_dir, 'Compilado'),
+    'COMPILADO_FOLDER': os.path.join(esteira_dir, 'COMPILADO'),
     'LOG_FILE': os.path.join(exec_dir, 'erros_contratos.txt'), 
     'DEFAULT_TIMEOUT': 60,
     'PDF_TIMEOUT': 10,
