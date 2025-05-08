@@ -11,8 +11,12 @@ from config.selectors import Selectors
 from models.pdf_processor import PDFProcessor
 from models.excel_processor import ExcelProcessor
 from utils.helpers import *
+import warnings
 
 from credentials import senha_contracktor, email_contracktor
+
+
+warnings.filterwarnings("ignore")
 
 class ContraktorBot:
     """Classe principal para automação do Contraktor."""

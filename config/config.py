@@ -24,6 +24,8 @@ CONFIG = {
     'EXCEL_ESTEIRA': os.path.join(esteira_dir, 'ESTEIRA.xlsx'),
     'EXCEL_PLUXXE': excel_pluxxe,
     'EXCEL_CONTRATOS': os.path.join(rpa_dir, '#RPA.xlsx'),
+    'PLUXXE_FOLDER': os.path.join(esteira_dir, 'PLUXXE'),
+    'COMPILADO_FOLDER': os.path.join(esteira_dir, 'Compilado'),
     'LOG_FILE': os.path.join(exec_dir, 'erros_contratos.txt'), 
     'DEFAULT_TIMEOUT': 60,
     'PDF_TIMEOUT': 10,

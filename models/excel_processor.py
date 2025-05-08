@@ -1,7 +1,7 @@
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
 import pandas as pd
-from datetime import date
-import os
+from datetime import date, datetime, timedelta
+import os, re
 from config import CONFIG
 
 
@@ -144,4 +144,71 @@ class ExcelProcessor:
             print(f"Erro ao renomear a planilha: {e}")
 
 
+    @staticmethod
+    def compilar_arquivos():
+        # Determinando os dias anteriores
+        hoje = datetime.today()
+        dias_ate_segunda = hoje.weekday()
+        ultima_segunda = hoje - timedelta(days=dias_ate_segunda + 7)
+        ultima_sexta = hoje - timedelta(days = 4)
 
+        # Loop para pegar os arquivos
+        datas = []
+        dia_atual = ultima_segunda
+        while dia_atual <= ultima_sexta:
+            datas.append(dia_atual.strftime("%d%m%y"))
+            dia_atual += timedelta(days = 1)
+
+        # Verifica a pasta pluxxe
+        all_files = os.listdir(CONFIG['PLUXXE_FOLDER'])
+
+        # Filtro dos dias anteriores
+        arquivos_processados = []
+
+        # Filtro
+        padrao = r"PLANSIP4C_\d+_(\d{6})(?:\s*-\s*\d+)?"
+
+        for arquivo in all_files:
+            match = re.search(padrao, arquivo)
+            if match and match.group(1) in datas:
+                arquivos_processados.append(arquivo)
+        
+        return arquivos_processados
+
+
+    @staticmethod
+    def compilar_planilhas(arquivos, linha_inicio = 8):
+        wb_compilado = Workbook()
+        ws_destino = wb_compilado.active
+        ws_destino.title = 'Dados dos Beneficiários'
+
+        primeira = True
+
+        for arquivo in arquivos:
+            wb = load_workbook(arquivo, data_only=True)
+            ws = wb.active
+
+            if primeira:
+                for i in range(1, linha_inicio):
+                    for j, cell in enumerate(ws[i], start=1):
+                        ws_destino.cell(row=i, column=j, value=cell.value)
+                linha_atual_destino = linha_inicio
+                primeira = False
+            else:
+                linha_atual_destino = ws_destino.max_row + 1
+
+            for i in range(linha_inicio, ws.max_row + 1):
+                if all(cell.value is None for cell in ws[i]):
+                    continue
+                for j, cell in enumerate(ws[i], start=1):
+                    ws_destino.cell(row=linha_atual_destino, column=j, value=cell.value)
+                linha_atual_destino += 1
+
+        hoje = date.today()
+        dia_formatado = hoje.strftime("%d%m%y")
+        try:
+            nome_arquivo = f"Compilado_{dia_formatado}.xlsx"
+            saida_path = os.path.join(CONFIG['COMPILADO_FOLDER'], nome_arquivo)
+            wb_compilado.save(saida_path)
+        except Exception as e:
+            print(f"Erro ao compilar planilhas: {e}")
