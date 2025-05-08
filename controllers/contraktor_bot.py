@@ -199,6 +199,9 @@ class ContraktorBot:
                 print("✅ Compilação concluída.")
                 ExcelProcessor.compilar_planilhas(compilado)
                 print("📄 Planilha de compilamento gerada.")
+                planilha_compilada = encontrar_excel_recente(CONFIG['COMPILADO_FOLDER'])
+                EmailSender.envio_email(planilha_compilada)
+
 
             if modo_teste:
                 print("⚠️ Modo de teste ativado. Encerrando após compilação.")

@@ -102,6 +102,33 @@ def encontrar_arquivo_recente(pasta, padrao="*.pdf", timeout=None):
         time.sleep(1)
     return None
 
+def encontrar_excel_recente(pasta, padrao="*.xlsx", timeout=None):
+    import glob, os, time
+
+    if timeout is None:
+        timeout = CONFIG['PDF_TIMEOUT']
+
+    caminho = os.path.join(pasta, padrao)
+    arquivos_antes = set(glob.glob(caminho))
+    tempo_inicio = time.time()
+
+    while time.time() - tempo_inicio < timeout:
+        arquivos_agora = set(glob.glob(caminho))
+        novos_arquivos = list(arquivos_agora - arquivos_antes)
+
+        if novos_arquivos:
+            novos_arquivos.sort(key=lambda x: os.path.getctime(x))
+            return novos_arquivos[-1]
+        time.sleep(1)
+
+    arquivos_existentes = glob.glob(caminho)
+    if arquivos_existentes:
+        arquivos_existentes.sort(key=lambda x: os.path.getctime(x))
+        return arquivos_existentes[-1]
+
+    return None
+
+
 def excluir_arquivo(arquivo):
     """Remove um arquivo do sistema."""
     try:
