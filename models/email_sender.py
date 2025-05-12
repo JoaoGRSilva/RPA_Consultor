@@ -25,7 +25,7 @@ class EmailSender:
             mail.Attachments.Add(anexo)
 
             mail.Send()
-            print("Email enviado com sucesso!")
+            print("✈️Email enviado com sucesso!")
 
         except Exception as e:
             print(f"Houve um erro para enviar: {e}")
