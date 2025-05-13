@@ -128,7 +128,6 @@ def encontrar_excel_recente(pasta, padrao="*.xlsx", timeout=None):
 
     return None
 
-
 def excluir_arquivo(arquivo):
     """Remove um arquivo do sistema."""
     try:

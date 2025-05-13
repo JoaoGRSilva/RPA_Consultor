@@ -10,6 +10,7 @@ from config.selectors import Selectors
 from models.pdf_processor import PDFProcessor
 from models.excel_processor import ExcelProcessor
 from models.email_sender import EmailSender
+from models.contracktor_processor import ContracktorProcessor
 from utils.helpers import *
 import warnings, shutil
 from datetime import datetime,timedelta
@@ -178,6 +179,18 @@ class ContraktorBot:
                 "erro": str(e)
             }
 
+    def liberar_todas_as_fichas(self):
+        processor = ContracktorProcessor(self.driver)
+        while True:
+            sucesso = processor.liberar_contratos()
+            if not sucesso:
+                print("Todas as fichas liberadas")
+                break
+            print("Ficha liberada. Loopando para a próxima")
+            time.sleep(1)
+
+
+
     def executar(self, limite=None, modo_teste=False):
         """
         Executa o processamento completo de contratos.
@@ -223,12 +236,20 @@ class ContraktorBot:
             else:
                 print("✅ Planilha pluxxe carregada.")
 
+            
             if not self.iniciar_navegador():
                 return
             time.sleep(2)
 
             if not self.login():
                 return
+
+            try:
+                self.liberar_todas_as_fichas()
+
+            except Exception as e:
+                print(f"Erro teste processar contrato: {e}")
+
 
             total_contratos = len(contratos)
             print(f"\n🚀 Iniciando processamento de {total_contratos} contratos...\n")
