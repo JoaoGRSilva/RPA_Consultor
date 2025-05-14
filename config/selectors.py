@@ -25,6 +25,6 @@ class Selectors:
     GERAR_BUTTON = '//*[@id="ContractsListItemMenu"]/div/div/div[2]'
     TITLE_INPUT = '//*[@id="title"]'
     STATUS_BUTTON = '//*[@id="status_id"]'
-    VIGENTE_BUTTON = '//*[@id="status_id"]/div[2]/div[4]'
+    VIGENTE_BUTTON = '//*[@id="status_id"]/div[2]/div[2]'
     SALVAR_BUTTON = '//*[@id="scrollBoxSidebar"]/div/div/form/div[12]/button'
     CONTRATOS_BUTTON = '//*[@id="single-spa-application:@contraktor/compass"]/header/div/div/nav/div[1]/div[1]/button'
