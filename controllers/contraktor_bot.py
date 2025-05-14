@@ -202,20 +202,6 @@ class ContraktorBot:
 
         try:
 
-            if not self.iniciar_navegador():
-                return
-            time.sleep(2)
-
-            if not self.login():
-                return
-
-            try:
-                self.liberar_todas_as_fichas()
-
-            except Exception as e:
-                print(f"Erro teste processar contrato: {e}")
-
-
             excecao = self.excecao_var.get()
             hoje = datetime.today().weekday()
 
@@ -251,9 +237,18 @@ class ContraktorBot:
             else:
                 print("✅ Planilha pluxxe carregada.")
 
-            
+            if not self.iniciar_navegador():
+                return
+            time.sleep(2)
 
+            if not self.login():
+                return
 
+            try:
+                self.liberar_todas_as_fichas()
+
+            except Exception as e:
+                print(f"Erro teste processar contrato: {e}")
 
             total_contratos = len(contratos)
             print(f"\n🚀 Iniciando processamento de {total_contratos} contratos...\n")
