@@ -186,9 +186,8 @@ class ContraktorBot:
             if not sucesso:
                 print("✅Todas as fichas liberadas")
                 break
-            print("🔁Ficha liberada. Loopando para a próxima")
+            print("🔁 Ficha liberada. Loopando para a próxima")
             time.sleep(1)
-
 
 
     def executar(self, limite=None, modo_teste=False):
@@ -201,7 +200,7 @@ class ContraktorBot:
         """
 
         try:
-
+            """
             excecao = self.excecao_var.get()
             hoje = datetime.today().weekday()
 
@@ -215,31 +214,14 @@ class ContraktorBot:
                 print("📄 Planilha de compilamento gerada.")
                 planilha_compilada = encontrar_excel_recente(CONFIG['COMPILADO_FOLDER'])
                 EmailSender.envio_email(planilha_compilada)
-
+            """
 
             if modo_teste:
                 print("⚠️ Modo de teste ativado. Encerrando após compilação.")
                 return
 
-            print("🔍 Lendo contratos pendentes...")
-            contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
-
-            if not contratos:
-                print("⚠️ Nenhum contrato pendente encontrado.")
-                return
-
-            print("📁 Copiando modelo da planilha...")
-            shutil.copy(CONFIG['EXCEL_PLUXXE'], 'planilha.xlsx')
-
-            if not os.path.exists('planilha.xlsx'):
-                print("❌ Planilha pluxxe não encontrada!")
-                return
-            else:
-                print("✅ Planilha pluxxe carregada.")
-
             if not self.iniciar_navegador():
                 return
-            time.sleep(2)
 
             if not self.login():
                 return
@@ -249,6 +231,22 @@ class ContraktorBot:
 
             except Exception as e:
                 print(f"Erro teste processar contrato: {e}")
+
+            print("🔍 Lendo contratos pendentes...")
+            contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
+
+            if not contratos:
+                print("⚠️ Nenhum contrato pendente encontrado.")
+                return
+                
+            print("📁 Copiando modelo da planilha...")
+            shutil.copy(CONFIG['EXCEL_PLUXXE'], 'planilha.xlsx')
+
+            if not os.path.exists('planilha.xlsx'):
+                print("❌ Planilha pluxxe não encontrada!")
+                return
+            else:
+                print("✅ Planilha pluxxe carregada.")
 
             total_contratos = len(contratos)
             print(f"\n🚀 Iniciando processamento de {total_contratos} contratos...\n")
