@@ -1,4 +1,3 @@
-
 import time
 import glob
 import os, re
@@ -32,7 +31,6 @@ def abreviar_nome(nome_completo):
             nomes_abreviados.append(parte[0].upper())
     
     return f"{primeiro_nome} {' '.join(nomes_abreviados)} {ultimo_nome}"
-
 
 ESTADOS_UF = {
     "Acre": "AC", "Alagoas": "AL", "Amapá": "AP", "Amazonas": "AM", "Bahia": "BA", "Ceará": "CE",
