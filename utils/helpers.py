@@ -130,10 +130,14 @@ def encontrar_excel_recente(pasta, padrao="*.xlsx", timeout=None):
 
 def excluir_arquivo(arquivo):
     """Remove um arquivo do sistema."""
-    try:
-        os.remove(arquivo)
-    except Exception as e:
-        print(f"Erro ao excluir o arquivo {arquivo}: {e}")
+    if arquivo:
+        if os.path.exists(arquivo):
+            os.remove(arquivo)
+        
+        else:
+            print("Arquivo não localizado para exclusão, seguindo...")
+    else:
+        print("Arquivo não localizado para exclusão, seguindo...")
 
 def try_click(element):
     tentativas = CONFIG['ATTEMPTS']
