@@ -55,7 +55,7 @@ class ContracktorProcessor:
             aguardar_elemento(self.driver, By.XPATH, Selectors.TABLE, tipo_espera='presenca')
 
             rows = self.driver.find_elements(By.XPATH, "//tr[@role='row']")
-            print(f"📄 Total de linhas encontradas: {len(rows)}")
+            #print(f"📄 Total de linhas encontradas: {len(rows)}")
 
             for idx, row in enumerate(rows):
                 if not row.is_displayed():
@@ -72,7 +72,7 @@ class ContracktorProcessor:
                     #print(f"🧪 Linha {idx} - Conteúdo: {texts}")
 
                     if any("ficha consultor" in text for text in texts):
-                        print(f"✅ Ficha consultor encontrada na linha {idx}. Liberando...")
+                        #print(f"✅ Ficha consultor encontrada na linha {idx}. Liberando...")
 
                         botao_mais = row.find_element(By.XPATH, Selectors.OPTIONS_BUTTON)
                         try_click(botao_mais)
@@ -81,7 +81,6 @@ class ContracktorProcessor:
                         try_click(botao_gerar)
 
                         self.ajustar_contrato()
-                        print(f"📤 Ficha da linha {idx} liberada com sucesso.")
 
                         liberou = True
                         return True

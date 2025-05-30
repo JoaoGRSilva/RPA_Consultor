@@ -13,7 +13,7 @@ from models.email_sender import EmailSender
 from models.contracktor_processor import ContracktorProcessor
 from utils.helpers import *
 import warnings, shutil
-from datetime import datetime,timedelta
+from datetime import timedelta
 
 from credentials import senha_contracktor, email_contracktor
 
