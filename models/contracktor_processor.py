@@ -55,34 +55,69 @@ class ContracktorProcessor:
             aguardar_elemento(self.driver, By.XPATH, Selectors.TABLE, tipo_espera='presenca')
 
             rows = self.driver.find_elements(By.XPATH, "//tr[@role='row']")
-            #print(f"📄 Total de linhas encontradas: {len(rows)}")
 
             for idx, row in enumerate(rows):
                 if not row.is_displayed():
-                    #print(f"🔕 Linha {idx} oculta, ignorando.")
                     continue
 
                 try:
                     cells = row.find_elements(By.XPATH, ".//td[@role='cell']")
                     if not cells:
-                        #print(f"⚠️ Linha {idx} sem células, ignorando.")
                         continue
 
                     texts = [cell.text.strip().lower() for cell in cells]
-                    #print(f"🧪 Linha {idx} - Conteúdo: {texts}")
 
                     if any("ficha consultor" in text for text in texts):
-                        #print(f"✅ Ficha consultor encontrada na linha {idx}. Liberando...")
+                        print(f"✅ Ficha consultor encontrada na linha {idx}. Liberando...")
 
-                        botao_mais = row.find_element(By.XPATH, Selectors.OPTIONS_BUTTON)
+                        # Fechar todos os dropdowns antes de abrir o novo
+                        try:
+                            print("🔄 Fechando dropdowns existentes...")
+                            self.driver.execute_script("""
+                                document.querySelectorAll('[role="menu"], .dropdown-menu, .menu-dropdown').forEach(menu => {
+                                    menu.style.display = 'none';
+                                    menu.style.visibility = 'hidden';
+                                });
+                            """)
+                            sleep(0.5)
+                        except:
+                            pass
+
+                        botao_mais = row.find_element(By.XPATH, ".//button")
+                        print(f"🔘 Clicando no botão de ações da linha {idx}...")
                         try_click(botao_mais)
 
-                        botao_gerar = aguardar_elemento(self.driver, By.XPATH, Selectors.GERAR_BUTTON, tipo_espera='clicavel')
-                        try_click(botao_gerar)
+                        print(f"⌛ Aguardando menu dropdown aparecer...")
+                        sleep(2)
+                        
+                        # XPath específico baseado na linha atual (única tentativa necessária)
+                        seletor = f"(//tr[@role='row'])[{idx+1}]//div[@role='option'][contains(., 'Gerar contrato')]"
+                        
+                        try:
+                            print(f"🔍 Procurando botão 'Gerar contrato' na linha {idx}...")
+                            elementos = self.driver.find_elements(By.XPATH, seletor)
+                            
+                            botao_clicado = False
+                            for elemento in elementos:
+                                if elemento.is_displayed() and elemento.is_enabled():
+                                    print(f"✅ Elemento encontrado e clicável")
+                                    try_click(elemento)
+                                    botao_clicado = True
+                                    break
+                            
+                            if not botao_clicado:
+                                print("❌ Não foi possível clicar em 'Gerar contrato'")
+                                continue
+                                
+                        except Exception as e:
+                            print(f"❌ Erro ao tentar clicar: {e}")
+                            continue
 
+                        print(f"🔧 Ajustando contrato...")
                         self.ajustar_contrato()
 
                         liberou = True
+                        print(f"✅ Contrato liberado com sucesso!")
                         return True
 
                 except StaleElementReferenceException:

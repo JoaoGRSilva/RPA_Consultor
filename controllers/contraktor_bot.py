@@ -30,7 +30,7 @@ class ContraktorBot:
         self.tempos_processamento = []
         self.tempo_inicio_total = None
 
-    def iniciar_navegador(self):
+    def iniciar_navegador_headless(self):
         """Inicia o navegador Chrome."""
         try:
             options = Options()
@@ -38,6 +38,19 @@ class ContraktorBot:
             options.add_argument("--window-size=1920,1080")
             options.add_argument("--disable-gpu") 
             options.add_argument("--disable-dev-shm-usage") 
+            self.driver = webdriver.Chrome(options=options)
+            self.driver.maximize_window()
+            self.driver.execute_script("document.title = 'Contraktor - Google Chrome'")
+            return True
+        except Exception as e:
+            print(f"Erro ao iniciar navegador: {e}")
+            return False
+        
+    def iniciar_navegador(self):
+        """Inicia o navegador Chrome."""
+        try:
+            options = Options()
+            options.add_argument("--window-size=1920,1080")
             self.driver = webdriver.Chrome(options=options)
             self.driver.maximize_window()
             self.driver.execute_script("document.title = 'Contraktor - Google Chrome'")
@@ -231,6 +244,15 @@ class ContraktorBot:
 
             except Exception as e:
                 print(f"Erro teste processar contrato: {e}")
+
+            self.driver.quit()
+            time.sleep(2)
+            
+            if not self.iniciar_navegador_headless():
+                return
+
+            if not self.login():
+                return
 
             print("🔍 Lendo contratos pendentes...")
             contratos = ExcelProcessor.ler_contratos_pendentes(limite, modo_teste)
