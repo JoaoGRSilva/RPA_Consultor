@@ -11,7 +11,7 @@ def main():
     args = parser.parse_args()
 
     if args.nogui:
-        bot = ContraktorBot(excecao_var=False)  
+        bot = ContraktorBot()  
         bot.executar(limite=args.limit, modo_teste=args.test)
     else:
         # No modo GUI, com interface gráfica
@@ -20,7 +20,6 @@ def main():
         
         def criar_bot_controller():
             return ContraktorBot(
-                excecao_var=app.excecao_var, 
                 ui=app,
                 log_queue=app.log_queue
             )

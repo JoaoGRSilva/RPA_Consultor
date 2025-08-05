@@ -9,7 +9,6 @@ from config.config import CONFIG
 from config.selectors import Selectors
 from models.pdf_processor import PDFProcessor
 from models.excel_processor import ExcelProcessor
-from models.email_sender import EmailSender
 from models.contracktor_processor import ContracktorProcessor
 from utils.helpers import *
 import warnings, shutil
@@ -23,8 +22,7 @@ warnings.filterwarnings("ignore")
 class ContraktorBot:
     """Classe principal para automação do Contraktor."""
 
-    def __init__(self, ui=None, excecao_var=None, log_queue=None):
-        self.excecao_var = excecao_var
+    def __init__(self, ui=None, log_queue=None):
         self.driver = None
         self.ui = ui
         self.tempos_processamento = []
@@ -214,11 +212,7 @@ class ContraktorBot:
 
         try:
             """
-            excecao = self.excecao_var.get()
             hoje = datetime.today().weekday()
-
-            if hoje != 0 and not excecao:
-                pass
             else:
                 print("🔹 Iniciando processo de compilado...")
                 compilado = ExcelProcessor.compilar_arquivos()
@@ -226,7 +220,6 @@ class ContraktorBot:
                 ExcelProcessor.compilar_planilhas(compilado)
                 print("📄 Planilha de compilamento gerada.")
                 planilha_compilada = encontrar_excel_recente(CONFIG['COMPILADO_FOLDER'])
-                EmailSender.envio_email(planilha_compilada)
             """
 
             if modo_teste:
@@ -246,6 +239,7 @@ class ContraktorBot:
                 print(f"Erro teste processar contrato: {e}")
 
             self.driver.quit()
+
             time.sleep(2)
             
             if not self.iniciar_navegador_headless():

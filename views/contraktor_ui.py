@@ -50,8 +50,6 @@ class ContraktorBotUI:
         self.style.configure("Pesquisar.TButton", background=self.COR_BOTAO_PESQUISAR, foreground="black")
         
         # Variáveis
-        self.excecao_var = BooleanVar()
-        self.excecao_var = tk.BooleanVar(value=False)
         self.limite_var = tk.StringVar(value="")
         self.is_running = False
         self.log_queue = queue.Queue()
@@ -86,10 +84,6 @@ class ContraktorBotUI:
         self.botao_iniciar = tk.Button(controle_frame, text="Iniciar", bg=self.COR_BOTAO_PESQUISAR, fg="black",
                                     command=self.iniciar_processamento, width=15)
         self.botao_iniciar.pack(side=tk.LEFT, padx=5)
-
-        self.excecao_check = tk.Checkbutton(controle_frame, text="E-mail em exceção", variable=self.excecao_var,
-                                            bg=self.COR_FUNDO, fg=self.COR_TEXTO, selectcolor=self.COR_FUNDO)
-        self.excecao_check.pack(side=tk.LEFT, padx=10)
         
         # Frame de progresso
         progress_frame = tk.LabelFrame(main_frame, text="Andamento", bg=self.COR_FUNDO, fg=self.COR_TEXTO, padx=10, pady=10)
