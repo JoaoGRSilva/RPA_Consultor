@@ -38,6 +38,7 @@ class ExcelProcessor:
         except Exception as e:
             print(f"Erro ao ler planilha de contratos: {e}")
             return None
+ 
 
     @staticmethod
     def atualizar_esteira(resultados, caminho_excel):
@@ -93,6 +94,7 @@ class ExcelProcessor:
                 )
             return False
 
+    
     @staticmethod
     def preencher_planilha(dados, linha_inicial=7):
         try:

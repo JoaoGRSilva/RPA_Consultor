@@ -14,6 +14,8 @@ class Selectors:
     SEARCH_BUTTON = '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[2]/div[2]/div/div[2]/div[1]/form/button'
     
     # Contrato
+    NUM_BUTOTON = '//*[@id="number"]'
+    TABLE_CONTRACT = '//*[@id="contratos"]'
     CONTRACT_LINK = '//*[@id="number"]/a'
     DOWNLOAD_BUTTON = '//*[@id="single-spa-application:@contraktor/legacy"]/div/div[1]/div[2]/div[1]/div[4]/button[1]'
     RETURN_BUTTON = '//*[@id="single-spa-application:@contraktor/compass"]/header/div/div/nav/div[1]/div[1]/button'

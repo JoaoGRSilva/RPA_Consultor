@@ -4,7 +4,7 @@ from utils import *
 
 class PDFProcessor:
     """Classe para processar arquivos PDF de contratos."""
-    
+
     @staticmethod
     def extrair_informacoes(caminho_pdf):
         """
@@ -26,26 +26,28 @@ class PDFProcessor:
                 campos_busca = [
                     "CPF/MF", "Data de Nascimento", "Nome completo", "Celular", 
                     "(e-mail pessoal ou pessoal corporativo)", "RG", "Órgão Emissor", 
-                    "Logradouro", "Número", "Bairro", "Cidade", "Estado", "CEP", "Celular"
+                    "Logradouro", "Número", "Bairro", "Cidade", "Estado", "CEP"
                 ]
 
                 for campo in campos_busca:
-                    if campo in texto_completo:
-                        indice = texto_completo.find(campo)
-                        valor = texto_completo[indice + len(campo):].split('\n')[0].strip()
+                    # Regex com IGNORECASE para achar a posição do campo no texto
+                    padrao = re.compile(re.escape(campo), re.IGNORECASE)
+                    match = padrao.search(texto_completo)
+
+                    if match:
+                        indice = match.end()  # pega posição logo depois do campo encontrado
+                        valor = texto_completo[indice:].split('\n')[0].strip()
 
                         if campo == "Número":
-                            match = re.match(r'(\d+)\s*(.*)', valor)
-                            if match:
-                                numero = match.group(1)
-                                complemento = match.group(2).strip()
-                                info["Número"] = numero
-                                info["Complemento"] = complemento
+                            m_num = re.match(r'(\d+)\s*(.*)', valor)
+                            if m_num:
+                                info["Número"] = m_num.group(1)
+                                info["Complemento"] = m_num.group(2).strip()
                             else:
-                                info["Número"] = valor 
+                                info["Número"] = valor
                         else:
                             info[campo] = valor
-                            
+
                 return {
                     "texto_completo": texto_completo, 
                     "dados_extraidos": info, 
@@ -59,6 +61,7 @@ class PDFProcessor:
                 "dados_extraidos": {}, 
                 "status": f"Erro: {str(e)}"
             }
+
     
     @staticmethod
     def preparar_dados_para_planilha(dados_pdf):

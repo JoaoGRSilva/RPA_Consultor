@@ -122,7 +122,14 @@ class ContraktorBot:
             botao_busca = aguardar_elemento(self.driver, By.XPATH, Selectors.SEARCH_BUTTON, tipo_espera='clicavel')
             try_click(botao_busca)
 
-            # Clicar no link do contrato
+            # Clicar no link do contrato           
+            # Aguarda a tabela carregar
+            aguardar_elemento(self.driver, By.XPATH, Selectors.TABLE_CONTRACT, tipo_espera='presenca')
+
+
+            botao_numero = aguardar_elemento(self.driver, By.XPATH, Selectors.NUM_BUTOTON)
+            try_click(botao_numero)
+
             link_contrato = aguardar_elemento(self.driver, By.XPATH, Selectors.CONTRACT_LINK, tipo_espera='clicavel')
             try_click(link_contrato)
 
@@ -226,6 +233,7 @@ class ContraktorBot:
                 print("⚠️ Modo de teste ativado. Encerrando após compilação.")
                 return
 
+            """
             if not self.iniciar_navegador():
                 return
 
@@ -238,10 +246,10 @@ class ContraktorBot:
             except Exception as e:
                 print(f"Erro teste processar contrato: {e}")
 
-            self.driver.quit()
 
             time.sleep(2)
-            
+            """
+            print("Iniciando...")
             if not self.iniciar_navegador_headless():
                 return
 
@@ -295,6 +303,8 @@ class ContraktorBot:
 
             sucesso = sum(1 for r in resultados if r['status'] == "Sucesso")
             falhas = [r['numero'] for r in resultados if r['status'] == "Falha"]
+
+            ExcelProcessor.atualizar_esteira(resultados, CONFIG['EXCEL_CONTRATOS'])
 
             print("\n📊 === RESUMO DO PROCESSAMENTO ===")
             print(f"Total processado: {len(resultados)}")
