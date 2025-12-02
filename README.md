@@ -1,6 +1,6 @@
 # 🤖 Módulo de Execução Automatizada
 
-## 📌 Descrição
+## 📌 Sobre o projeto
 
 Este projeto é um sistema de **RPA (Robotic Process Automation)** desenvolvido em **Python** que automatiza a extração de informações da plataforma **Contracktor** e as organiza em uma planilha estruturada, pronta para integração com outros sistemas.
 
@@ -24,7 +24,7 @@ Automatizar o fluxo de trabalho de coleta de dados da Contracktor, **eliminando 
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Python 3.x**
+- **Python 3**
 - **Selenium** – Automação de navegação web  
 - **Pandas** – Manipulação de dados  
 - **PyMuPDF & PyPDF2** – Leitura e processamento de arquivos PDF  
@@ -52,7 +52,7 @@ Você pode rodar este projeto de duas formas:
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/modulo-execucao-automatizada.git
+git clone https://github.com/JoaoGRSilva/RPA_Consultor
 cd modulo-execucao-automatizada
 
 # Instalar as dependências
